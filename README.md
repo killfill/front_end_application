@@ -13,7 +13,7 @@ Sitting on top of this infrastructure is our flagship application, LumeFX.  Lume
 LumeFX has proven to be a successful model.  It utilizes the beautifully simplistic complexity of our infrastructure and continues to deliver optimal service to many clients.  It's an easy sell.  However, licensing the infrastructure itself is a lot more difficult than licensing an application running on said infrastructure.  Solution? Unicorns.
 
 ###u·ni·corn
-ˈyo͞onəˌkôrn
+>ˈyo͞onəˌkôrn
 noun
 
 1. a mythical animal typically represented as a horse with a single straight horn projecting from its forehead.
@@ -43,6 +43,6 @@ Build an application to visualize stock data from [dev.markitondemand.com](http:
 This is very much a test of your ability to problem solve indpendently. Any questions can be directed to [rl@lucerahq.com](mailto:rl@lucerahq.com), but no further guidance will be given.  All the information you need is provided for you in the links above.
 
 ## Delivery
-First, fork this repository.  In your fork create a directory called `app`. Add your resume to the repo's root, and write your application in the app directory. Keep your git commits clean and use feature branches.  Your git proficiency will be evaluated. 
+First, fork this repository.  In your fork create a directory called `app`. Add your resume to the repo's root and write your application in the app directory. Keep your git commits clean and use feature branches.  Your git proficiency will be evaluated. 
 
-
+#### Good Luck!
