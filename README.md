@@ -21,9 +21,7 @@ noun
 
 The front end team at Lucera is looking for unicorns to help in the development advanced cloud management tools, fast and modern user interfaces for financial applications and to brainstorm with us about the future of Lucera!
 
-# Test!
-
-We are excited to see what you have to bring to the table. The next page outlines the criteria for the test.  Try not to spend too much time in one area (front or backend).  Convince us you are a unicorn and deliver a stable balanced product. small product If you have any questions feel free to email us at [rl@lucerahq.com](mailto:rl@lucerahq.com), but keep in mind that this is also a test of your ability to problem solve, think, and execute independently.  Everything you need is outlined on the following page.
+We are excited to see what you have to bring to the table. The next page outlines the criteria for the test.  Try not to spend too much time in one area (front or backend).  Convince us you are a unicorn and deliver a stable balanced product. small product If you have any questions feel free to email us at [rl@lucerahq.com](mailto:rl@lucerahq.com), but keep in mind that this is also a test of your ability to problem solve, think, and execute independently.  Everything you need is outlined below.
 
 # Lucera Front End Engineer Test
 > Test Duration: 1 Week
