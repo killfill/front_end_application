@@ -32,13 +32,13 @@ Build an application to visualize stock data from [dev.markitondemand.com](http:
 
 ## Requirements
 
-- [Node.js](nodejs.org) (server)
-- [Express.js](expressjs.com) (framework)
-- [Socket.io](socket.io) (sockets)
-- [Flux](facebook.github.io/react/docs/flux-overview.html) Archetecture (design pattern)
-- [React.js](facebook.github.io/react/docs/tutorial.html) (views)
-- [Require.js](requirejs.org/) (AMD)
-- [Bower](bower.io) (client side dependency manager)
+- [Node.js](http://nodejs.org) (server)
+- [Express.js](http://expressjs.com) (framework)
+- [Socket.io](http://socket.io) (sockets)
+- [Flux](http://facebook.github.io/react/docs/flux-overview.html) Archetecture (design pattern)
+- [React.js](http://facebook.github.io/react/docs/tutorial.html) (views)
+- [Require.js](http://requirejs.org/) (AMD)
+- [Bower](http://bower.io) (client side dependency manager)
 
 This is very much a test of your ability to problem solve indpendently. Any questions can be directed to [rl@lucerahq.com](mailto:rl@lucerahq.com), but no further guidance will be given.  All the information you need is provided for you in the links above.
 
