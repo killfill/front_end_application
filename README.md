@@ -43,6 +43,6 @@ Build an application to visualize stock data from [dev.markitondemand.com](http:
 This is very much a test of your ability to problem solve indpendently. Any questions can be directed to [rl@lucerahq.com](mailto:rl@lucerahq.com), but no further guidance will be given.  All the information you need is provided for you in the links above.
 
 ## Delivery
-First, fork this repository.  In your fork create a directory called `app`. Add your resume to the repo's root and write your application in the app directory. Keep your git commits clean and use feature branches.  Your git proficiency will be evaluated. 
+First, fork this repository.  In your fork create a directory called `app`. Add your resume to the repo's root and write your application in the app directory. Keep your git commits clean and use feature branches.  Your git proficiency will be evaluated. You will have one week from the time your code is forked.
 
 #### Good Luck!
