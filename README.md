@@ -21,7 +21,7 @@ noun
 
 The front end team at Lucera is looking for unicorns to help in the development advanced cloud management tools, fast and modern user interfaces for financial applications and to brainstorm with us about the future of Lucera!
 
-We are excited to see what you have to bring to the table. The next page outlines the criteria for the test.  Try not to spend too much time in one area (front or backend).  Convince us you are a unicorn and deliver a stable balanced product. small product If you have any questions feel free to email us at [rl@lucerahq.com](mailto:rl@lucerahq.com), but keep in mind that this is also a test of your ability to problem solve, think, and execute independently.  Everything you need is outlined below.
+We are excited to see what you have to bring to the table. The following section outlines the criteria for the test.  Try not to spend too much time in one area (front or backend).  Convince us you are a unicorn and deliver a stable balanced product. If you have any questions feel free to email us at [rl@lucerahq.com](mailto:rl@lucerahq.com), but keep in mind that this is also a test of your ability to problem solve, think, and execute independently.  Everything you need is outlined below.
 
 # Lucera Front End Engineer Test
 > Test Duration: 1 Week
@@ -39,8 +39,6 @@ Build an application to visualize stock data from [dev.markitondemand.com](http:
 - [React.js](http://facebook.github.io/react/docs/tutorial.html) (views)
 - [Require.js](http://requirejs.org/) (AMD)
 - [Bower](http://bower.io) (client side dependency manager)
-
-This is very much a test of your ability to problem solve indpendently. Any questions can be directed to [rl@lucerahq.com](mailto:rl@lucerahq.com), but no further guidance will be given.  All the information you need is provided for you in the links above.
 
 ## Delivery
 First, fork this repository.  In your fork create a directory called `app`. Add your resume to the repo's root and write your application in the app directory. Keep your git commits clean and use feature branches.  Your git proficiency will be evaluated. You will have one week from the time your code is forked.
