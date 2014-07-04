@@ -1,0 +1,107 @@
+/* Layout css stuff */
+
+html, body, ul {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-family: "Helvetica Neue";
+	font-weight: 200;
+}
+
+ul {
+	list-style: none;
+	text-align: center;
+}
+
+.sidebar {
+	position: fixed;
+	overflow: hidden;
+	overflow-y: scroll;
+	left: 0;
+	top: 50px;
+	bottom: 0;
+	width: 150px;
+	background-color: #C0C2C1;
+	box-shadow: 2px 2px 1px rgba(50, 50, 50, 0.75);
+}
+
+.sidebar input {
+	width: 100%;
+	padding: 10px;
+	margin-top: 25px;
+	margin-bottom: 10px;
+}
+
+.middle {
+	margin-top: 50px;
+	margin-left: 150px;
+	padding: 20px;
+	/*background-color: yellow;*/
+}
+
+.topbar {
+	position: fixed;
+	top: 0;
+	height: 50px;
+	width: 100%;
+	background-color: #6A9E8E;
+	box-shadow: 2px 2px 1px rgba(50, 50, 50, 0.75);
+}
+
+ul.horizontal {
+	display: inline-block;
+}
+
+ul.horizontal li {
+	display: inline-block;
+}
+
+/* Menu links */
+.topbar ul li a:hover {
+	color: #1D7057;
+}
+.topbar ul.hover li:hover {
+	background-color: inherit;
+}
+.topbar ul li a {
+	text-decoration: none;
+	padding-right: 50px;
+	padding-left: 50px;
+	color: white;
+	line-height: 50px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
+
+.topbar ul li.selected {
+	background-color: #1D7057;
+}
+
+.topbar ul li.selected a {
+	color: white;
+}
+
+.project {
+	display: inline-block;
+	/*font-size: 2em;*/
+	width: 150px;
+	text-transform: uppercase;
+	line-height: 50px;
+	letter-spacing: 5px;
+	text-align: center;
+	font-weight: bold;
+}
+
+ul.items li {
+	padding: 4px;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+ul.hover li:hover{
+
+	background-color: #525E5D;
+	color: #C0C2C1
+}
