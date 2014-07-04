@@ -1,0 +1,138 @@
+<html>
+	
+	<head>
+		
+		<style>
+
+			html, body, ul {
+				margin: 0;
+				padding: 0;
+				border: 0;
+			}
+
+			ul {
+				list-style: none;
+				text-align: center;
+			}
+
+			.sidebar {
+				position: fixed;
+				overflow: hidden;
+				overflow-y: scroll;
+				left: 0;
+				top: 50px;
+				bottom: 0;
+				width: 150px;
+				background-color: red;
+			}
+
+			.middle {
+				margin-top: 50px;
+				margin-left: 150px;
+				background-color: yellow;
+			}
+
+			.topbar {
+				position: fixed;
+				top: 0;
+				height: 50px;
+				width: 100%;
+				background-color: gray;
+			}
+
+			ul.horizontal {
+				display: inline-block;
+			}
+
+			ul.horizontal li {
+				display: inline-block;
+			}
+
+			/* Menu links */
+			.topbar ul li a {
+				text-decoration: none;
+				padding: 50px;
+				color: white;
+				line-height: 50px;
+			}
+
+			.topbar ul li.selected {
+				background-color: white;
+			}
+
+			.topbar ul li.selected a {
+				color: black;
+			}
+
+			.project {
+				display: inline-block;
+				/*font-size: 2em;*/
+				width: 150px;
+				text-transform: uppercase;
+				line-height: 50px;
+				letter-spacing: 6px;
+				text-align: center;
+			}
+
+		</style>
+
+	</head>
+
+	<body>
+		
+		<div class="topbar">
+			<span class="project">Name</span>
+			<ul class='horizontal'>
+				<li> <a href="">Uno</a> </li>
+				<li class='selected'> <a href="">Dos</a> </li>
+				<li> <a href="">Tres</a> </li>
+				<li> <a href="">Cuatro</a> </li>
+			</ul>
+		</div>
+
+		<div class="sidebar">
+			This is the sidebar
+			This is the sidebar
+			This is the sidebar
+			This is the sidebar
+			This is the sidebar
+			This is the sidebar
+			This is the sidebar
+			This is the sidebar
+			This is the sidebar
+			This is the sidebar
+			This is the sidebar
+			This is the sidebar
+			This is the sidebar
+			This is the sidebar
+			This is the sidebar
+			This is the sidebar
+		</div>
+
+		<div class="middle">
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			This is below the top bar<br/>
+			
+		</div>
+
+	</body>
+
+</html>
