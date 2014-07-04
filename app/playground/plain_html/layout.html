@@ -8,6 +8,8 @@
 				margin: 0;
 				padding: 0;
 				border: 0;
+				font-family: "Helvetica Neue";
+				font-weight: 200;
 			}
 
 			ul {
@@ -23,12 +25,13 @@
 				top: 50px;
 				bottom: 0;
 				width: 150px;
-				background-color: red;
+				background-color: #C0C2C1;
+				box-shadow: 2px 2px 1px rgba(50, 50, 50, 0.75);
 			}
 
 			.sidebar input {
 				width: 100%;
-				padding: 5px;
+				padding: 10px;
 				margin-top: 25px;
 				margin-bottom: 10px;
 			}
@@ -36,7 +39,8 @@
 			.middle {
 				margin-top: 50px;
 				margin-left: 150px;
-				background-color: yellow;
+				padding: 20px;
+				/*background-color: yellow;*/
 			}
 
 			.topbar {
@@ -44,7 +48,8 @@
 				top: 0;
 				height: 50px;
 				width: 100%;
-				background-color: gray;
+				background-color: #6A9E8E;
+				box-shadow: 2px 2px 1px rgba(50, 50, 50, 0.75);
 			}
 
 			ul.horizontal {
@@ -61,14 +66,15 @@
 				padding: 50px;
 				color: white;
 				line-height: 50px;
+				text-transform: uppercase;
 			}
 
 			.topbar ul li.selected {
-				background-color: white;
+				background-color: #1D7057;
 			}
 
 			.topbar ul li.selected a {
-				color: black;
+				color: white;
 			}
 
 			.project {
@@ -77,12 +83,23 @@
 				width: 150px;
 				text-transform: uppercase;
 				line-height: 50px;
-				letter-spacing: 6px;
+				letter-spacing: 5px;
 				text-align: center;
+				font-weight: bold;
 			}
 
 			ul.items li {
 				padding: 4px;
+			}
+
+			.pointer {
+				cursor: pointer;
+			}
+
+			ul.hover li:hover{
+
+				background-color: #525E5D;
+				color: #C0C2C1
 			}
 
 		</style>
@@ -92,12 +109,12 @@
 	<body>
 		
 		<div class="topbar">
-			<span class="project">Name</span>
-			<ul class='horizontal'>
-				<li> <a href="">Uno</a> </li>
-				<li class='selected'> <a href="">Dos</a> </li>
-				<li> <a href="">Tres</a> </li>
-				<li> <a href="">Cuatro</a> </li>
+			<span class="project">Stocks</span>
+			<ul class='horizontal hover'>
+				<li> <a href="">Dashboard</a> </li>
+				<li class='selected'> <a href="">Table</a> </li>
+				<li> <a href="">Graph</a> </li>
+				<li> <a href="">Benchmark</a> </li>
 			</ul>
 		</div>
 
@@ -110,7 +127,7 @@
 				<li>Selected Thing</li>
 			</ul>
 			<input type="text" placeholder='Search...'>
-			<ul class='items'>
+			<ul class='items hover pointer'>
 				<li>Found Thing</li>
 				<li>Found Thing</li>
 				<li>Found Thing</li>
@@ -122,6 +139,9 @@
 			This is below the top bar<br/>
 			This is below the top bar<br/>
 			This is below the top bar<br/>
+
+			Palete: http://www.colourlovers.com/palette/3409598/240614_Fireplace
+
 			This is below the top bar<br/>
 			This is below the top bar<br/>
 			This is below the top bar<br/>
