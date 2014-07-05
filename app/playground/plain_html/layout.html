@@ -4,37 +4,67 @@
 		
 		<link rel="stylesheet" href='layout.css' />
 		<style>
-
 			/* Boxen! */
 			.box {
-				border: 1px #525E5D solid;
+				border: 1px #555 solid;
 				margin: 10px;
 				float: left;
-				border-radius: 4px
+				border-radius: 4px;
 			}
 
 			.box .header {
-				border-bottom: 1px #525E5D solid;
+				border-bottom: 1px #555 solid;
 				padding: 5px;
 				text-transform: uppercase;
 				text-align: center;
 				font-weight: 600;
 			}
 
-			.box .body {
-				padding: 10px;
+			.box .banner {
+				padding-left: 20px;
+				padding-right: 20px;
+				font-weight: bold;
+				height: 22px;
+				line-height: 22px;
+				border-bottom: 1px #555 solid;
+				letter-spacing: 2px;
 			}
 
+			.box .body {
+				padding: 10px;
+				text-align: center;
+			}
 
+			.pull-right {
+				float: right;
+			}
+
+			.pull-left {
+				float: left;
+			}
 
 			.positive {
 				color: green;
 			}
 
 			.negative {
-				color: red;
+				color: #aa0000;
 			}
 
+			.positive-dark {
+				color: white;
+				background-color: green;
+			}
+			.negative-dark {
+				color: white;
+				background-color: #aa0000;
+			}
+
+			.number {
+				font-family: monospace;
+				text-align: right;
+				white-space: nowrap;
+			}
 		</style>
 
 	</head>
@@ -44,10 +74,10 @@
 	<body>
 		
 		<section class="topbar">
-			<span class="project">Stocks</span>
+			<span class="project">&#8669; Stocks</span>
 			<ul class='horizontal hover'>
-				<li> <a href="">Dashboard</a> </li>
-				<li class='selected'> <a href="">Table</a> </li>
+				<li class='selected'> <a href="">Dashboard</a> </li>
+				<li> <a href="">Table</a> </li>
 				<li> <a href="">Graph</a> </li>
 				<li> <a href="">Benchmark</a> </li>
 				<li> <a href="">@</a> </li>
@@ -80,56 +110,71 @@
 
 
 			<article class='box'>
-				<div class='header positive'>15.6 (3.1%) aapl &#9650</div>
+				<div class='header positive'>aapl &#9650</div>
+				<div class="banner positive-dark">
+					<span class='number pull-left' title='Change'>15.6</span>
+					<span class='number pull-right'>3.1%</span>
+				</div>
 
 				<div class="body">
+						<table>
+							<tr><td>Price</td><td class='number'>524.49</td></tr>
+							<tr><td>&rarr;Open</td><td class='number'>519.175</td></tr>
+							<tr><td>&darr;Low</td><td class='number'>519.175</td></tr>
+							<tr><td>&uarr;High</td><td class='number'>524.99</td></tr>
+							<tr><td>Volume</td><td class='number'>397562</td></tr>
+							<tr><td>Market</td><td class='number'>476497591530</td></tr>
+							<tr><td>Year</td><td class='number'>532.1729  -1.44%</td></tr>
+						</table>
+						<p>Oct 23 13:39:19 UTC-06:00</p>
 
-					<div>LastPrice: 524.49,</div>
-
-					<div>Open: 519.175
-					<div>Low: 519.175,</div>
-					<div>High: 52499,</div>
-					<div>ChangeYTD: 532.1729 (-1.44%)</div>
-					<div>Volume: 397562,</div>
-					<div>MarketCap: 476497591530,</div>
-					<div>Oct 23 13:39:19 UTC-06:00</div>
-					<div>Apple Inc,</div>
+						<div>Apple Inc.</div>
 				</div>
 			</article>
 
 			<article class='box'>
-				<div class='header positive'>15.6 (3.1%) aapl &#9650</div>
+				<div class='header positive'>aapl &#9650</div>
+				<div class="banner positive-dark">
+					<span class='number pull-left' title='Change'>15.6</span>
+					<span class='number pull-right'>3.1%</span>
+				</div>
 
 				<div class="body">
+						<table>
+							<tr><td>Price</td><td class='number'>524.49</td></tr>
+							<tr><td>&rarr;Open</td><td class='number'>519.175</td></tr>
+							<tr><td>&darr;Low</td><td class='number'>519.175</td></tr>
+							<tr><td>&uarr;High</td><td class='number'>524.99</td></tr>
+							<tr><td>Volume</td><td class='number'>397562</td></tr>
+							<tr><td>Market</td><td class='number'>476497591530</td></tr>
+							<tr><td>Year</td><td class='number'>532.1729  -1.44%</td></tr>
+						</table>
+						<p>Oct 23 13:39:19 UTC-06:00</p>
 
-					<div>LastPrice: 524.49,</div>
-
-					<div>Open: 519.175
-					<div>Low: 519.175,</div>
-					<div>High: 52499,</div>
-					<div>ChangeYTD: 532.1729 (-1.44%)</div>
-					<div>Volume: 397562,</div>
-					<div>MarketCap: 476497591530,</div>
-					<div>Oct 23 13:39:19 UTC-06:00</div>
-					<div>Apple Inc,</div>
+						<div>Apple Inc.</div>
 				</div>
 			</article>
 
 			<article class='box'>
-				<div class='header negative'>15.6 (3.1%) aapl &#9650</div>
+				<div class='header negative'>aapl &#9650</div>
+				<div class="banner negative-dark">
+					<span class='number pull-left' title='Change'>15.6</span>
+					<span class='number pull-right'>3.1%</span>
+				</div>
 
 				<div class="body">
+						<table>
+							<tr><td>Price</td><td class='number'>524.49</td></tr>
+							<tr><td>&rarr;Open</td><td class='number'>519.175</td></tr>
+							<tr><td>&darr;Low</td><td class='number'>519.175</td></tr>
+							<tr><td>&uarr;High</td><td class='number'>524.99</td></tr>
+							<tr><td>Volume</td><td class='number'>397562</td></tr>
+							<tr><td>Market</td><td class='number'>476497591530</td></tr>
+							<tr><td>Year</td><td class='number'>532.1729  -1.44%</td></tr>
+						</table>
+						<p>Oct 23 13:39:19 UTC-06:00</p>
 
-					<div>LastPrice: 524.49,</div>
-
-					<div>Open: 519.175
-					<div>Low: 519.175,</div>
-					<div>High: 52499,</div>
-					<div>ChangeYTD: 532.1729 (-1.44%)</div>
-					<div>Volume: 397562,</div>
-					<div>MarketCap: 476497591530,</div>
-					<div>Oct 23 13:39:19 UTC-06:00</div>
-					<div>Apple Inc,</div>
+						<div>Apple Inc.</div>
 				</div>
 			</article>
 

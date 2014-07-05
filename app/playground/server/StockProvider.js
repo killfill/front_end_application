@@ -19,13 +19,11 @@ function endpointClosure(subject) {
 
 }
 
-
 var me = module.exports = {
 	Lookup: endpointClosure('Lookup'),
 	Quote: endpointClosure('Quote'),
 	InteractiveChart: endpointClosure('InteractiveChart')
 }
-
 
 function StockPoller(opts) {
 	opts = opts || {}
