@@ -16,7 +16,6 @@ html, body, ul, input {
 
 ul {
 	list-style: none;
-	text-align: center;
 }
 
 .sidebar {
@@ -35,6 +34,7 @@ ul {
 	width: 100%;
 	padding: 10px;
 	font-size: 1em;
+	text-align: center;
 }
 
 .sidebar h4 {
@@ -100,7 +100,7 @@ ul.horizontal li {
 .project {
 	display: inline-block;
 	/*font-size: 2em;*/
-	width: 150px;
+	width: 146px;
 	text-transform: uppercase;
 	line-height: 50px;
 	letter-spacing: 5px;
@@ -120,4 +120,69 @@ ul.hover li:hover{
 
 	background-color: #525E5D;
 	color: #C0C2C1
+}
+
+
+.pull-right {
+	float: right;
+}
+
+.pull-left {
+	float: left;
+}
+
+.positive {
+	color: green;
+}
+
+.negative {
+	color: #aa0000;
+}
+
+.positive-dark {
+	color: white;
+	background-color: green;
+}
+.negative-dark {
+	color: white;
+	background-color: #aa0000;
+}
+
+.number {
+	font-family: monospace;
+	text-align: right;
+	white-space: nowrap;
+}
+
+li:hover span.show-on-hover {
+	opacity: 1;
+}
+.show-on-hover {
+	opacity: 0;
+}
+
+ul.items li :first-child {
+	font-size: 1.5em;
+	line-height: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
+	color: white;
+	text-shadow: 2px 2px 1px black;
+}
+
+ul.items li :nth-child(2) {
+	text-align: center;
+	display: inline-block;
+	width: 85px;
+}
+
+button {
+	border: none;
+	background-color: #C0C2C1;
+	color: #555;
+	border-radius: 4px;
+	cursor: pointer;
+}
+button:hover {
+	box-shadow: 1px 1px 2px gray;
 }

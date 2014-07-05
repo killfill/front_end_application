@@ -1,8 +1,9 @@
 <html>
 	
 	<head>
-		
+
 		<link rel="stylesheet" href='layout.css' />
+
 		<style>
 			/* Boxen! */
 			.box {
@@ -35,42 +36,9 @@
 				text-align: center;
 			}
 
-			.pull-right {
-				float: right;
-			}
-
-			.pull-left {
-				float: left;
-			}
-
-			.positive {
-				color: green;
-			}
-
-			.negative {
-				color: #aa0000;
-			}
-
-			.positive-dark {
-				color: white;
-				background-color: green;
-			}
-			.negative-dark {
-				color: white;
-				background-color: #aa0000;
-			}
-
-			.number {
-				font-family: monospace;
-				text-align: right;
-				white-space: nowrap;
-			}
 		</style>
 
 	</head>
-
-
-
 	<body>
 		
 		<section class="topbar">
@@ -87,30 +55,57 @@
 		<section class="sidebar">
 			<div>
 				<h4>Selected</h4>
-				<ul class='items'>
-					<li>Selected Thing</li>
-					<li>Selected Thing</li>
-					<li>Selected Thing</li>
-					<li>Selected Thing</li>
+				<ul class='items hover pointer'>
+					<li title='Remove Apple Inc (NASDAQ) from the selected list'>
+						<span class='show-on-hover action'>-</span>
+						<span>AAPL</span>
+					</li>
+					<li title='Remove Apple Inc (NASDAQ) from the selected list'>
+						<span class='show-on-hover'>-</span>
+						<span>AAPL</span>
+					</li>
+					<li title='Remove Apple Inc (NASDAQ) from the selected list'>
+						<span class='show-on-hover'>-</span>
+						<span>AAPL</span>
+					</li>
 				</ul>
 			</div>
 			<input type="text" placeholder='Search for ...'>
 			<div>
+				<h4>Found</h4>
 				<ul class='items hover pointer'>
-					<h4>Found</h4>
-					<li>Found Thing</li>
-					<li>Found Thing</li>
-					<li>Found Thing</li>
-					<li>Found Thing</li>
+					<li title='Add Apple Inc (NASDAQ) to the selected list'>
+						<span class='show-on-hover'>+</span>
+						<span>AAPL</span>
+					</li>
+					<li title='Add Apple Inc (NASDAQ) to the selected list'>
+						<span class='show-on-hover'>+</span>
+						<span>AAPL</span>
+					</li>
+					<li title='Add Apple Inc (NASDAQ) to the selected list'>
+						<span class='show-on-hover'>+</span>
+						<span>AAPL</span>
+					</li>
+					<li title='Add Apple Inc (NASDAQ) to the selected list'>
+						<span class='show-on-hover'>+</span>
+						<span>AAPL</span>
+					</li>
+					<li title='Add Apple Inc (NASDAQ) to the selected list'>
+						<span class='show-on-hover'>+</span>
+						<span>AAPL</span>
+					</li>
 				</ul>
 			</div>
 		</section>
 
 		<section class="middle">
 
-
 			<article class='box'>
-				<div class='header positive'>aapl &#9650</div>
+				<div class='header positive'>
+					<button class='pull-left' title='Change box state'>state</button>
+					aapl &#9650
+					<button class='pull-right' title='Deselect this stock'>-</button>
+				</div>
 				<div class="banner positive-dark">
 					<span class='number pull-left' title='Change'>15.6</span>
 					<span class='number pull-right'>3.1%</span>
@@ -133,7 +128,11 @@
 			</article>
 
 			<article class='box'>
-				<div class='header positive'>aapl &#9650</div>
+				<div class='header positive'>
+					<button class='pull-left' title='Change box state'>state</button>
+					aapl &#9650
+					<button class='pull-right' title='Deselect this stock'>-</button>
+				</div>
 				<div class="banner positive-dark">
 					<span class='number pull-left' title='Change'>15.6</span>
 					<span class='number pull-right'>3.1%</span>
@@ -156,7 +155,11 @@
 			</article>
 
 			<article class='box'>
-				<div class='header negative'>aapl &#9650</div>
+				<div class='header negative'>
+					<button class='pull-left' title='Change box state'>state</button>
+					aapl &#9650
+					<button class='pull-right' title='Deselect this stock'>-</button>
+				</div>
 				<div class="banner negative-dark">
 					<span class='number pull-left' title='Change'>15.6</span>
 					<span class='number pull-right'>3.1%</span>
