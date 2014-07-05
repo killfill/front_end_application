@@ -18,49 +18,25 @@
 						founded: [],
 					}
 				},
-				handleStockSelection: function(stock) {
-					console.log('--->', stock)
-					var sels = this.state.selected
+				handleStockSelect: function(stock, foundedIdx) {
+
+					var sels = this.state.selected,
+						founds = this.state.founded
+
 					sels.push(stock)
-					this.setState({selected: sels})
+					founds.splice(foundedIdx, 1)
+
+					this.setState({
+						selected: sels,
+						founded: founds
+					})
 				},
-				handleStockUnSelection: function(stock) {
-					console.log('unselect --->', stock)
+				handleStockUnselect: function(stock) {
 					var sels = this.state.selected
 
 					var idx = sels.indexOf(stock)
 					sels.splice(idx, 1)
 					this.setState({selected: sels})
-				},
-				renderSelectedList: function() {
-					if (!this.state.selected.length)
-						return <div><h4>Search and add a stock</h4></div>
-
-					var list = this.state.selected.map(function(d) {
-						return (<li onClick={this.handleStockUnSelection.bind(null, d)} title={'Remove ' + d.Name + ' (' + d.Exchange + ') from the selected list.'}>
-							<span className='show-on-hover'>-</span>
-							<span>{d.Symbol}</span>
-						</li>)
-					}.bind(this))
-
-					var txt = 'Selection'
-					if (this.state.selected.length > 1) txt += 's'
-					return <div><h4>{this.state.selected.length} {txt}</h4><ul className='items hover pointer'>{list}</ul></div>
-				},
-				renderFoundList: function() {
-
-					if (!this.state.founded.length)
-						return <div></div>
-						// return <div><h4>Not founded stocks</h4></div>
-
-					var list = this.state.founded.map(function(d) {
-						return (<li onClick={this.handleStockSelection.bind(null, d)} title={'Add ' + d.Name + ' (' + d.Exchange + ') to the selected list.'}>
-							<span className='show-on-hover'>+</span>
-							<span>{d.Symbol}</span>
-						</li>)
-					}.bind(this))
-
-					return <div><h4>{this.state.founded.length} Found</h4><ul className='items hover pointer'>{list}</ul></div>
 				},
 				handleSearch: function(e) {
 					e.preventDefault()
@@ -79,21 +55,57 @@
 						{Symbol: 'NFLX0', Name: 'Netflix Inc', Exchange: 'NASDAQ'},
 					]
 
-					this.setState({founded: found})
+					//Hide the symbols that are already selected list.
+					var alreadySelected = this.state.selected.map(function(d) { return d.Symbol }),
+						filtered = found.map(function(f) {
+							if (alreadySelected.indexOf(f.Symbol) < 0)
+								return f
+						}).filter(function(i) {return i})
 
+					this.setState({founded: filtered})
+					this.refs.searchText.getDOMNode().value = ''
 				},
 				render: function() {
 
-					var selectedList = this.renderSelectedList(),
-						foundList = this.renderFoundList()
+					var selectedH4 = this.state.selected.length
+						? (this.state.selected.length + ' Items') 
+						: 'Add some items'
+
+					var foundH4 = this.state.founded.length
+						? (this.state.founded.length + ' Results')
+						: ''
 
 					return (<span>
-						{selectedList}
+						<h4>{selectedH4}</h4>
+						<StockList data={this.state.selected} onClick={this.handleStockUnselect} hoverChar='-' />
 						<form onSubmit={this.handleSearch}>
 							<input ref='searchText' type="text" placeholder='Search for ...' />
 						</form>
-						{foundList}
+						<h4>{foundH4}</h4>
+						<StockList data={this.state.founded} onClick={this.handleStockSelect} hoverChar='+' />
 					</span>)
+				}
+			})
+
+			var StockList = React.createClass({
+				getDefaultProps: function() {
+					return {
+						data: [],
+						onClick: function() {},
+						hoverChar: '?'
+					}
+				},
+				render: function() {
+					if (!this.props.data.length)
+						return <div></div>
+
+					var list = this.props.data.map(function(d, idx) {
+						return (<li onClick={this.props.onClick.bind(null, d, idx)} title={d.Name + ' (' + d.Exchange + ')'}>
+							<span className='show-on-hover'>{this.props.hoverChar}</span>
+							<span>{d.Symbol}</span>
+						</li>)
+					}.bind(this))
+					return <ul className='items hover pointer'>{list}</ul>
 				}
 			})
 
