@@ -1,9 +1,15 @@
 /* Layout css stuff */
 
-html, body, ul {
+
+
+/* Reset */
+html, body, ul, h1, h2, h3, h4, input {
 	margin: 0;
 	padding: 0;
 	border: 0;
+}
+
+html, body, ul, input {
 	font-family: "Helvetica Neue";
 	font-weight: 200;
 }
@@ -18,7 +24,7 @@ ul {
 	overflow: hidden;
 	overflow-y: scroll;
 	left: 0;
-	top: 50px;
+	top: 51px;
 	bottom: 0;
 	width: 150px;
 	background-color: #C0C2C1;
@@ -28,8 +34,18 @@ ul {
 .sidebar input {
 	width: 100%;
 	padding: 10px;
-	margin-top: 25px;
-	margin-bottom: 10px;
+	font-size: 1em;
+}
+
+.sidebar h4 {
+	color: #134158;
+	text-align: center;
+	margin: 10px;
+	margin-top: 15px;
+}
+
+.sidebar div:first-child {
+	margin-bottom: 20px;
 }
 
 .middle {
@@ -44,7 +60,7 @@ ul {
 	top: 0;
 	height: 50px;
 	width: 100%;
-	background-color: #6A9E8E;
+	background-color: #6489AF;
 	box-shadow: 2px 2px 1px rgba(50, 50, 50, 0.75);
 }
 
@@ -58,7 +74,7 @@ ul.horizontal li {
 
 /* Menu links */
 .topbar ul li a:hover {
-	color: #1D7057;
+	color: #134158;
 }
 .topbar ul.hover li:hover {
 	background-color: inherit;
@@ -74,7 +90,7 @@ ul.horizontal li {
 }
 
 .topbar ul li.selected {
-	background-color: #1D7057;
+	background-color: #134158;
 }
 
 .topbar ul li.selected a {

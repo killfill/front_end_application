@@ -8,15 +8,38 @@
 			/* Boxen! */
 			.box {
 				border: 1px #525E5D solid;
-				padding: 10px;
 				margin: 10px;
 				float: left;
 				border-radius: 4px
 			}
 
+			.box .header {
+				border-bottom: 1px #525E5D solid;
+				padding: 5px;
+				text-transform: uppercase;
+				text-align: center;
+				font-weight: 600;
+			}
+
+			.box .body {
+				padding: 10px;
+			}
+
+
+
+			.positive {
+				color: green;
+			}
+
+			.negative {
+				color: red;
+			}
+
 		</style>
 
 	</head>
+
+
 
 	<body>
 		
@@ -32,41 +55,94 @@
 		</section>
 
 		<section class="sidebar">
-			<br/>
-			<ul class='items'>
-				<li>Selected Thing</li>
-				<li>Selected Thing</li>
-				<li>Selected Thing</li>
-				<li>Selected Thing</li>
-			</ul>
-			<input type="text" placeholder='Search...'>
-			<ul class='items hover pointer'>
-				<li>Found Thing</li>
-				<li>Found Thing</li>
-				<li>Found Thing</li>
-				<li>Found Thing</li>
-			</ul>
+			<div>
+				<h4>Selected</h4>
+				<ul class='items'>
+					<li>Selected Thing</li>
+					<li>Selected Thing</li>
+					<li>Selected Thing</li>
+					<li>Selected Thing</li>
+				</ul>
+			</div>
+			<input type="text" placeholder='Search for ...'>
+			<div>
+				<ul class='items hover pointer'>
+					<h4>Found</h4>
+					<li>Found Thing</li>
+					<li>Found Thing</li>
+					<li>Found Thing</li>
+					<li>Found Thing</li>
+				</ul>
+			</div>
 		</section>
 
 		<section class="middle">
 
 
 			<article class='box'>
-				Hi!!
+				<div class='header positive'>15.6 (3.1%) aapl &#9650</div>
+
+				<div class="body">
+
+					<div>LastPrice: 524.49,</div>
+
+					<div>Open: 519.175
+					<div>Low: 519.175,</div>
+					<div>High: 52499,</div>
+					<div>ChangeYTD: 532.1729 (-1.44%)</div>
+					<div>Volume: 397562,</div>
+					<div>MarketCap: 476497591530,</div>
+					<div>Oct 23 13:39:19 UTC-06:00</div>
+					<div>Apple Inc,</div>
+				</div>
 			</article>
 
 			<article class='box'>
-				Hi!!
+				<div class='header positive'>15.6 (3.1%) aapl &#9650</div>
+
+				<div class="body">
+
+					<div>LastPrice: 524.49,</div>
+
+					<div>Open: 519.175
+					<div>Low: 519.175,</div>
+					<div>High: 52499,</div>
+					<div>ChangeYTD: 532.1729 (-1.44%)</div>
+					<div>Volume: 397562,</div>
+					<div>MarketCap: 476497591530,</div>
+					<div>Oct 23 13:39:19 UTC-06:00</div>
+					<div>Apple Inc,</div>
+				</div>
 			</article>
 
 			<article class='box'>
-				Hi!!
+				<div class='header negative'>15.6 (3.1%) aapl &#9650</div>
+
+				<div class="body">
+
+					<div>LastPrice: 524.49,</div>
+
+					<div>Open: 519.175
+					<div>Low: 519.175,</div>
+					<div>High: 52499,</div>
+					<div>ChangeYTD: 532.1729 (-1.44%)</div>
+					<div>Volume: 397562,</div>
+					<div>MarketCap: 476497591530,</div>
+					<div>Oct 23 13:39:19 UTC-06:00</div>
+					<div>Apple Inc,</div>
+				</div>
 			</article>
 
-			<article class='box'>
-				Hi!!
-			</article>
 
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
 			<br/>
 			<br/>
 			<br/>
@@ -76,12 +152,25 @@
 			<br/>
 			<br/>
 			<hr/>
-
-			This is below the top bar<br/>
-			This is below the top bar<br/>
-			This is below the top bar<br/>
-
-			Palete: http://www.colourlovers.com/palette/3409598/240614_Fireplace
+			<h2>Stock query response:</h2>
+			<pre>
+{
+    "Name":"Apple Inc",
+    "Symbol":"AAPL",
+    "LastPrice":524.49,
+    "Change":15.6,
+    "ChangePercent":3.06549549018453,
+    "Timestamp":"Wed Oct 23 13:39:19 UTC-06:00 2013",
+    "MSDate": 41570.568969907,
+    "MarketCap":476497591530,
+    "Volume":397562,
+    "ChangeYTD":532.1729,
+    "ChangePercentYTD":-1.44368493773359,
+    "High":52499,
+    "Low":519.175,
+    "Open":519.175
+}
+			</pre>
 
 			This is below the top bar<br/>
 			This is below the top bar<br/>
