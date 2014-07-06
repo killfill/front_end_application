@@ -13,17 +13,21 @@
 
 			var BoxContentMed = React.createClass({
 				render: function() {
-					var d = this.props.data
+					var d = this.props.data,
+						yearColor = d.ChangePercentYTD > 0 ? 'positive': d.ChangePercentYTD < 0 ? 'negative': ''
 
 					return (<div className='body'>
 						<table>
 							<tr><td>Price</td><td className='number'>{d.LastPrice}</td></tr>
 							<tr><td>&rarr;Open</td><td className='number'>{d.Open.toFixed(2)}</td></tr>
 							<tr><td>&darr;Low</td><td className='number'>{d.Low.toFixed(2)}</td></tr>
-							<tr><td>&uarr;High</td><td className='number'>{d.High}</td></tr>
+							<tr><td>&uarr;High</td><td className='number'>{d.High.toFixed(2)}</td></tr>
 							<tr><td>Volume</td><td className='number'>{d.Volume}</td></tr>
 							<tr><td>Market</td><td className='number'>{d.MarketCap}</td></tr>
-							<tr><td>Year</td><td className='number'>{d.ChangeYTD} {d.ChangePercentYTD.toFixed(2)}%</td></tr>
+							<tr><td>Year</td><td className='number'>
+								{d.ChangeYTD}
+								<span className={yearColor}> {d.ChangePercentYTD.toFixed(2)}%</span>
+								</td></tr>
 						</table>
 						<p>{new Date(d.Timestamp).toLocaleString()}</p>
 
@@ -35,7 +39,9 @@
 
 			var BoxContentBig = React.createClass({
 				render: function() {
-					return <div className='body'>Big</div>
+					return (<div className='body'>
+						<img src='http://www.biologycorner.com/resources/graph_tadpoles.JPG' width='390' height='180' />
+					</div>)
 				}
 			})
 
@@ -49,9 +55,9 @@
 					var curr = this.state.size
 
 					var next = curr === 'small'
-						? 'med'
-						: curr === 'med'
-							? 'big'
+						? 'big'
+						: curr === 'big'
+							? 'graph'
 							: 'small'
 
 					this.setState({size: next})
@@ -60,9 +66,9 @@
 					switch (size) {
 						case 'small':
 							return null
-						case 'med':
-							return <BoxContentMed data={this.props.data} />
 						case 'big':
+							return <BoxContentMed data={this.props.data} />
+						case 'graph':
 							return <BoxContentBig data={this.props.data} />
 					}
 				},
@@ -84,7 +90,7 @@
 
 					var content = this.getBoxContent(this.state.size)
 
-					return (<article className='box'>
+					return (<article className={'box ' + this.state.size}>
 
 						<div className={'header ' + color}>
 							<button className='pull-left' title='Change box size' onClick={this.changeSize}>{this.state.size}</button>
@@ -103,6 +109,28 @@
 				}
 			})
 
+var n = 0
+function buildSample(symbol) {
+	symbol = symbol || 'SPL' + (n++)
+
+	return {
+	    "Name": symbol + ' Company Inc.',
+	    "Symbol": symbol,
+	    "LastPrice": (400 + 200 * Math.random()).toFixed(2),
+	    "Change": (-20 + 40 * Math.random()).toFixed(2),
+	    "ChangePercent": -10 + 20 * Math.random(),
+	    "Timestamp": new Date().toString(),
+	    "MSDate": 41570.568969907,
+	    "MarketCap":476497591530,
+	    "Volume":397562,
+	    "ChangeYTD": (400 + 200 * Math.random()).toFixed(2),
+	    "ChangePercentYTD": -5 + 10 * Math.random(),
+	    "High": 400 + 200 * Math.random(),
+	    "Low": 400 + 200 * Math.random(),
+	    "Open": 400 + 200 * Math.random()
+}
+}
+
 			var Boxen = React.createClass({
 				getInitialState: function() {
 					return {
@@ -110,28 +138,25 @@
 					}
 				},
 				componentDidMount: function() {
-					var SAMPLE = {
-    "Name":"Apple Inc",
-    "Symbol":"AAPL",
-    "LastPrice":524.49,
-    "Change":15.6,
-    "ChangePercent":3.06549549018453,
-    "Timestamp":"Wed Oct 23 13:39:19 UTC-06:00 2013",
-    "MSDate": 41570.568969907,
-    "MarketCap":476497591530,
-    "Volume":397562,
-    "ChangeYTD":532.1729,
-    "ChangePercentYTD":-1.44368493773359,
-    "High":52499,
-    "Low":519.175,
-    "Open":519.175
-}
-					setTimeout(function() {
-						console.log('TICK')
+
+					function addSample() {
+						var SAMPLE = buildSample()
 						this.setState({
 							list: this.state.list.concat([SAMPLE])
 						})
+					}
+					for (var i=0; i<40; i++)
+						addSample.call(this)
+
+					setInterval(function() {
+						var l = this.state.list.map(function(d) {
+							return buildSample(d.Symbol)
+						})
+						this.setState({
+							list: l
+						})
 					}.bind(this), 1000)
+
 				},
 				render: function() {
 					var list = this.state.list.map(function(d) {

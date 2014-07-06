@@ -5,12 +5,25 @@
 	border-radius: 4px;
 }
 
+.box.small {
+	width: 160px;
+}
+
+.box.big {
+	width: 200px;
+}
+
+.box.graph {
+	width: 400px;
+}
+
 .box .header {
 	border-bottom: 1px #555 solid;
 	padding: 5px;
 	text-transform: uppercase;
 	text-align: center;
 	font-weight: 600;
+	height: 22px;
 }
 
 .box .banner {
@@ -26,4 +39,8 @@
 .box .body {
 	padding: 10px;
 	text-align: center;
+}
+
+.box .body table {
+	width: 100%;
 }
