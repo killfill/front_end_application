@@ -7,6 +7,12 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.5.1",
+    "express-livereload": "0.0.24",
+    "minimist": "^0.2.0",
+    "morgan": "^1.1.1",
     "socket.io": "^1.0.6"
+  },
+  "scripts": {
+    "start": "node-dev ./bin/cmd.js --livereload"
   }
 }

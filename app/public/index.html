@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Stocks React Experiment</title>
+
+		<link rel="stylesheet" href='layout.css' />
+		<link rel="stylesheet" href='boxen.css' />
+	</head>
+
+
+	<body>
+		
+		<section class="topbar">
+			<span class="project">&#8669; Stocks</span>
+			<ul class='horizontal hover'>
+				<li class='selected'> <a href="">Dashboard</a> </li>
+				<li> <a href="">Table</a> </li>
+				<li> <a href="">Graph</a> </li>
+				<li> <a href="">Benchmark</a> </li>
+				<li> <a href="">@</a> </li>
+			</ul>
+		</section>
+
+		<section class="sidebar">
+		</section>
+
+		<section class="middle">
+		</section>
+
+	</body>
+
+
+	<script src='/socket.io/socket.io.js'></script>
+	<script>
+		var socket = io()
+	</script>
+
+	<!-- Take me out :P -->
+	<script src='http://localhost:35729/livereload.js'></script>
+</html>
