@@ -12,7 +12,8 @@
     "socket.io": "^1.0.6"
   },
   "scripts": {
-    "start": "node-dev ./bin/cmd.js --livereload",
+    "start": "node-dev ./bin/cmd.js",
+    "start-dev": "node-dev ./bin/cmd.js --livereload & npm run watchify",
     "browserify": "browserify -t reactify client > public/all.js",
     "watchify": "watchify -t reactify client -o public/all.js -d -v"
   },
