@@ -168,7 +168,7 @@ function buildSample(symbol) {
 
 				if (typeof(canary) === 'number')
 					data = data.sort(function(a,b) {
-						return getValueHelper(a, col) - getValueHelper(b, col)
+						return getValueHelper(b, col) - getValueHelper(a, col)
 					}.bind(this))
 
 				else
@@ -176,8 +176,8 @@ function buildSample(symbol) {
 						var valA = getValueHelper(a, col),
 							valB = getValueHelper(b, col)
 
-						if (valA > valB) return 1
-						if (valA < valB) return -1
+						if (valB > valA) return 1
+						if (valB < valA) return -1
 						return 0
 					}.bind(this))
 
