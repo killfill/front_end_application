@@ -1,0 +1,12 @@
+{
+  "name": "stocks",
+  "version": "0.0.1",
+  "description": "Stocks app react experiment",
+  "main": "bin/cmd.js",
+  "author": "@killfil",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.5.1",
+    "socket.io": "^1.0.6"
+  }
+}
