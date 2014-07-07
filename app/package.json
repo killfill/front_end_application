@@ -7,12 +7,18 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.5.1",
-    "express-livereload": "0.0.24",
     "minimist": "^0.2.0",
     "morgan": "^1.1.1",
     "socket.io": "^1.0.6"
   },
   "scripts": {
-    "start": "node-dev ./bin/cmd.js --livereload"
+    "start": "node-dev ./bin/cmd.js --livereload",
+    "browserify": "browserify -t reactify client > public/all.js",
+    "watchify": "watchify -t reactify client -o public/all.js -d -v"
+  },
+  "devDependencies": {
+    "browserify": "^4.2.0",
+    "express-livereload": "0.0.24",
+    "reactify": "^0.13.1"
   }
 }
