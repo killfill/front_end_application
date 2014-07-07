@@ -20,7 +20,7 @@
 				border-bottom: 1px black solid;
 			}
 			table.large-table tr:hover td {
-				background-color: #C0C2C1;
+				background-color: #6489AF;
 				color: white;
 			}
 			.muted {
@@ -37,66 +37,158 @@
 		<script type="text/jsx">
 			/** @jsx React.DOM */
 
+function random(from, to, comma) {
+	//Numbers after the comma
+	comma = comma || 2
+
+	var delta = to - from
+
+	//Damn.. this should work..
+	//return from + ( Math.floor(Math.pow(10, comma) * delta * Math.random())) / Math.pow(10, comma)
+
+	//Ugly way
+	var raw = from + delta * Math.random(),
+		parts = raw.toString().split('.')
+	parts[1] = parts[1].slice(0, comma)
+	return parseFloat(parts.join('.'), 10)
+
+}
 var n = 0
 function buildSample(symbol) {
 	symbol = symbol || 'SPL' + (n++)
 
 	return {
-	    "Name": symbol + ' Company Inc.',
-	    "Symbol": symbol,
-	    "LastPrice": (400 + 200 * Math.random()).toFixed(2),
-	    "Change": (-20 + 40 * Math.random()).toFixed(2),
-	    "ChangePercent": -10 + 20 * Math.random(),
-	    "Timestamp": new Date().toString(),
-	    "MSDate": 41570.568969907,
-	    "MarketCap":476497591530,
-	    "Volume":397562,
-	    "ChangeYTD": (400 + 200 * Math.random()).toFixed(2),
-	    "ChangePercentYTD": -5 + 10 * Math.random(),
-	    "High": (400 + 200 * Math.random()).toFixed(2),
-	    "Low": (400 + 200 * Math.random()).toFixed(2),
-	    "Open": (400 + 200 * Math.random()).toFixed(2)
+		"Name": symbol + ' Company Inc.',
+		"Symbol": symbol,
+		"LastPrice": random(400, 600),
+		"Change": random(-20, 20),
+		"ChangePercent": random(-10, 10),
+		"Timestamp": new Date().toString(),
+		"MSDate": 41570.568969907,
+		"MarketCap":476497591530,
+		"Volume":397562,
+		"ChangeYTD": random(400 , 600),
+		"ChangePercentYTD": random(-5, 5),
+		"High": random(400, 600),
+		"Low": random(400, 600),
+		"Open": random(400, 600),
 	}
 }
 		var Table = React.createClass({
+			getInitialState: function() {
+				return {
+					sortBy: this.props.initialSortBy || this.props.columns[0].title || this.props.columns[0].getter,
+					reverse: false
+				}
+			},
 			getDefaultProps: function() {
 				return {
 					data: [],
-					columns: [],
+					columns: []
 				}
+			},
+			handleSort: function(col) {
+				var colId = col.title || col.getter,
+
+					//If clicked on the same column that is already sorted, toggle the reverse state
+					reverse = this.state.sortBy == colId
+						? !this.state.reverse
+						: false
+
+				this.setState({
+					sortBy: colId,
+					reverse: reverse
+				})
 			},
 			buildHeader: function() {
 				var ths = this.props.columns.map(function(col) {
-					return <th>{col.title || col.getter}</th>
-				}.bind(this))
+					var colId = col.title || col.getter,
+						sortIndicator = ''
 
+					if (this.state.sortBy === colId)
+						sortIndicator = this.state.reverse? '\u25b4' : '\u25be'
+
+					return <th onClick={this.handleSort.bind(this, col)}>{colId} {sortIndicator}</th>
+				}.bind(this))
 				return <tr>{ths}</tr>
+			},
+
+			//Get the value from the row, specified by the column.
+			getValue: function(row, col) {
+				var value = typeof(col.getter) === 'function'
+					? col.getter(row) //gett is a function, executed it to get the value of the cell
+					: row[col.getter] //the key of the hash
+
+				return value
 			},
 			buildBody: function() {
 				return this.props.data.map(function(row) {
 
 					var cells = this.props.columns.map(function(col) {
 
-						var value = typeof(col.getter) === 'function'
-							? col.getter(row) //gett is a function, executed it to get the value of the cell
-							: row[col.getter] //the key of the hash
-
 						var cls = typeof(col.cls) === 'function'
 							? col.cls(row)
 							: col.cls
 
-						return <td className={cls}>{value}</td>
-					})
+						return <td className={cls}>{this.getValue(row, col)}</td>
+					}.bind(this))
 
 					return <tr>{cells}</tr>
 
 				}.bind(this))
+			},
+			sortData: function() {
+				var data = this.props.data
 
+				if (!data.length) return data
+
+				//Get the column struct from 'id'
+				var col
+				this.props.columns.forEach(function(c) {
+					if (this.state.sortBy == (c.title || c.getter))
+						col = c
+				}.bind(this))
+
+				if (!col) {
+					console.error('Not sorting by column', this.state.sortBy + '. Could not find that column config.')
+					return data
+				}
+
+
+				//Function that get the value of the column, for sort propouses
+				var _getValue = this.getValue
+				function getValueHelper(row, col) {
+					return typeof(col.sort) == 'function'
+						? col.sort(row)
+						: _getValue(row, col)
+				}
+
+				//We need to know whats the type of the colum to order them as number or string. Take the first one as the canary
+				var canary = getValueHelper(data[0], col)
+
+				if (typeof(canary) === 'number')
+					data = data.sort(function(a,b) {
+						return getValueHelper(a, col) - getValueHelper(b, col)
+					}.bind(this))
+
+				else
+					data = data.sort(function(a,b) {
+						var valA = getValueHelper(a, col),
+							valB = getValueHelper(b, col)
+
+						if (valA > valB) return 1
+						if (valA < valB) return -1
+						return 0
+					}.bind(this))
+
+				return this.state.reverse? data.reverse(): data
 			},
 			render: function() {
 				var header = this.buildHeader(),
-					body = this.buildBody()
+					ordered = this.sortData()
+					body = this.buildBody(ordered)
 
+				// console.log('reender y sort by:', this.state)
 				return <table className={this.props.className}><tbody>{header}{body}</tbody></table>
 			}
 		})
@@ -109,7 +201,7 @@ function buildSample(symbol) {
 			{getter: 'LastPrice', title: 'Price', cls: 'number strong'},
 			{title: 'Change', 
 				getter: function(d) { return d.Change + ' (' + d.ChangePercent.toFixed(2) + '%)'}, 
-				sort:   function(d) { return d.Change},
+				sort:   function(d) { return d.ChangePercent},
 				cls:    function(d) { return d.ChangePercent > 0? 'center number positive': 'center number negative'}
 			},
 			{getter: 'High', cls: 'number'},
@@ -119,7 +211,12 @@ function buildSample(symbol) {
 			{getter: 'MarketCap', title: 'Market', cls: 'number muted'}
 		]
 
-		React.renderComponent(<Table data={tableData} columns={columsConfig} className='large-table hover' />, document.getElementsByClassName('middle')[0])
+		React.renderComponent(<Table
+			data={tableData}
+			columns={columsConfig}
+			initialSortBy='Price'
+			className='large-table hover' />,
+		document.getElementsByClassName('middle')[0])
 
 		</script>
 
