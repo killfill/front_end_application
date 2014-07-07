@@ -2,9 +2,11 @@
   * @jsx React.DOM
   */
 
-var StockList = require('./StockList')
+var StockList = require('./StockList'),
+	store = require('../stores/Selected')
 
 module.exports = React.createClass({
+
 	getInitialState: function() {
 		return {
 			selected: [],
@@ -12,25 +14,32 @@ module.exports = React.createClass({
 			isSearching: false
 		}
 	},
-	handleStockSelect: function(stock, foundedIdx) {
 
-		var sels = this.state.selected,
-			founds = this.state.founded
+	componentDidMount: function() {
+		store.subscribe(this.onStoreChanged)
+	},
 
-		sels.push(stock)
-		founds.splice(foundedIdx, 1)
+	//Handle changes comming from the store.
+	onStoreChanged: function(all) {
+
+		//Hide the founded elements that are already in the 'selected' list.
+		var founded = this.state.founded
+			.map(function(d) { if (!store.get(d.Symbol)) return d })
+			.filter(function(d) {return d})
 
 		this.setState({
-			selected: sels,
-			founded: founds
+			selected: all,
+			founded: founded
 		})
-	},
-	handleStockUnselect: function(stock) {
-		var sels = this.state.selected
 
-		var idx = sels.indexOf(stock)
-		sels.splice(idx, 1)
-		this.setState({selected: sels})
+	},
+
+	handleStockSelect: function(stock) {
+		store.set(stock.Symbol, stock)
+	},
+
+	handleStockUnselect: function(stock) {
+		store.remove(stock.Symbol)
 	},
 
 	//Filter the found symbols that are already selected
@@ -44,6 +53,7 @@ module.exports = React.createClass({
 
 		return filtered
 	},
+
 	handleSearch: function(e) {
 		e.preventDefault()
 		var val = this.refs.searchText.getDOMNode().value
@@ -61,6 +71,7 @@ module.exports = React.createClass({
 
 		}.bind(this))
 	},
+
 	render: function() {
 
 		var selectedH4 = this.state.selected.length
