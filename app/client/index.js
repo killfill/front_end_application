@@ -10,7 +10,6 @@ React.renderComponent(<Sidebar/>, document.getElementsByClassName('sidebar')[0])
 
 
 
-
 function random(from, to, comma) {
 	//Numbers after the comma
 	comma = comma || 2

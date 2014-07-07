@@ -31,32 +31,30 @@ module.exports = React.createClass({
 		sels.splice(idx, 1)
 		this.setState({selected: sels})
 	},
-	handleSearch: function(e) {
-		e.preventDefault()
-		var val = this.refs.searchText.getDOMNode().value
 
-		var found = [
-			{Symbol: 'NFLX1', Name: 'Netflix Inc', Exchange: 'NASDAQ'},
-			{Symbol: 'NFLX2', Name: 'Netflix Inc', Exchange: 'NASDAQ'},
-			{Symbol: 'NFLX3', Name: 'Netflix Inc', Exchange: 'NASDAQ'},
-			{Symbol: 'NFLX4', Name: 'Netflix Inc', Exchange: 'NASDAQ'},
-			{Symbol: 'NFLX5', Name: 'Netflix Inc', Exchange: 'NASDAQ'},
-			{Symbol: 'NFLX6', Name: 'Netflix Inc', Exchange: 'NASDAQ'},
-			{Symbol: 'NFLX7', Name: 'Netflix Inc', Exchange: 'NASDAQ'},
-			{Symbol: 'NFLX8', Name: 'Netflix Inc', Exchange: 'NASDAQ'},
-			{Symbol: 'NFLX9', Name: 'Netflix Inc', Exchange: 'NASDAQ'},
-			{Symbol: 'NFLX0', Name: 'Netflix Inc', Exchange: 'NASDAQ'},
-		]
+	//Filter the found symbols that are already selected
+	filterFoundSymbols: function(found) {
 
-		//Hide the symbols that are already selected list.
 		var alreadySelected = this.state.selected.map(function(d) { return d.Symbol }),
 			filtered = found.map(function(f) {
 				if (alreadySelected.indexOf(f.Symbol) < 0)
 					return f
 			}).filter(function(i) {return i})
 
-		this.setState({founded: filtered})
-		this.refs.searchText.getDOMNode().value = ''
+		return filtered
+	},
+	handleSearch: function(e) {
+		e.preventDefault()
+		var val = this.refs.searchText.getDOMNode().value
+
+		io().emit('search', val, function(err, found) {
+			if (err)
+				throw err
+
+			this.setState({founded: this.filterFoundSymbols(found)})
+			this.refs.searchText.getDOMNode().value = ''
+
+		}.bind(this))
 	},
 	render: function() {
 

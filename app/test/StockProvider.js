@@ -26,6 +26,17 @@ describe('StockProvider:Quote', function() {
 
 })
 
+describe('StockProvider:Lookup', function() {
+
+	it('Should find Apple', function(done) {
+		provider.Lookup({input: 'Apple'}, function(err, data) {
+			assert.equal(data.length, 2, 'Apple not found')
+			done()
+		})
+	})
+
+})
+
 describe('StockProvider:Poller', function() {
 
 
