@@ -1,0 +1,14 @@
+table.large-table {
+	width: 100%;
+	border-spacing: 0px;
+}
+table.large-table tr th {
+	font-weight: normal;
+	text-transform: uppercase;
+	cursor: pointer;
+	border-bottom: 1px black solid;
+}
+table.large-table tr:hover td {
+	background-color: #6489AF;
+	color: white;
+}
