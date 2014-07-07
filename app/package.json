@@ -15,11 +15,13 @@
     "start": "node-dev ./bin/cmd.js",
     "start-dev": "node-dev ./bin/cmd.js --livereload & npm run watchify",
     "browserify": "browserify -t reactify client > public/all.js",
-    "watchify": "watchify -t reactify client -o public/all.js -d -v"
+    "watchify": "watchify -t reactify client -o public/all.js -d -v",
+    "test": "mocha"
   },
   "devDependencies": {
     "browserify": "^4.2.0",
     "express-livereload": "0.0.24",
+    "mocha": "^1.20.1",
     "reactify": "^0.13.1"
   }
 }
