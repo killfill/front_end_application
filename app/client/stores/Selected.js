@@ -39,6 +39,13 @@ module.exports = {
 
 	subscribe: function(cb) {
 		subscribed.push(cb)
+	},
+
+	unsubscribe: function(cb) {
+		var idx = subscribed.indexOf(cb)
+		if (idx < 0) return false
+		subscribed.splice(idx, 1)
+		return true
 	}
 
 }

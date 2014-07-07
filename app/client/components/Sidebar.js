@@ -3,7 +3,8 @@
   */
 
 var StockList = require('./StockList'),
-	store = require('../stores/Selected')
+	store = require('../stores/Selected'),
+	actions = require('../actions/Symbols')
 
 module.exports = React.createClass({
 
@@ -17,6 +18,9 @@ module.exports = React.createClass({
 
 	componentDidMount: function() {
 		store.subscribe(this.onStoreChanged)
+	},
+	componentWillUnmount: function() {
+		store.unsubscribe(this.onStoreChanged)
 	},
 
 	//Handle changes comming from the store.
@@ -35,11 +39,11 @@ module.exports = React.createClass({
 	},
 
 	handleStockSelect: function(stock) {
-		store.set(stock.Symbol, stock)
+		actions.add(stock)
 	},
 
 	handleStockUnselect: function(stock) {
-		store.remove(stock.Symbol)
+		actions.remove(stock)
 	},
 
 	//Filter the found symbols that are already selected
