@@ -9,6 +9,7 @@ module.exports = React.createClass({
 		return {
 			selected: [],
 			founded: [],
+			isSearching: false
 		}
 	},
 	handleStockSelect: function(stock, foundedIdx) {
@@ -47,11 +48,15 @@ module.exports = React.createClass({
 		e.preventDefault()
 		var val = this.refs.searchText.getDOMNode().value
 
+		this.setState({isSearching: val, founded: []})
 		io().emit('search', val, function(err, found) {
 			if (err)
 				throw err
 
-			this.setState({founded: this.filterFoundSymbols(found)})
+			this.setState({
+				isSearching: false,
+				founded: this.filterFoundSymbols(found)
+			})
 			this.refs.searchText.getDOMNode().value = ''
 
 		}.bind(this))
@@ -65,6 +70,9 @@ module.exports = React.createClass({
 		var foundH4 = this.state.founded.length
 			? (this.state.founded.length + ' Results')
 			: ''
+
+		if (this.state.isSearching)
+			foundH4 = 'Looking for ' + this.state.isSearching
 
 		return (<span>
 			<h4>{selectedH4}</h4>
