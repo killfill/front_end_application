@@ -38,17 +38,16 @@ PollerHub.prototype.subscribe = function(symbol, client, cb) {
 		if (state.clients.indexOf(client) > -1)
 			return cb('Client already registerd to this symbol')
 
-		// console.log('Subscription from', (client.id || client), 'to', symbol + '. Polling already setup, adding to the listeners.')
+		console.log('Subscription from', (client.id || client), 'to', symbol + '. Polling already setup, adding to the listeners.')
 		state.clients.push(client)
 		return cb(null, state.lastKnownValue)
 	}
-	
+
 	//If not, start a new poll
 	this.poller.start(symbol, function(err, data) {
 
 		if (err) return cb(err)
-
-		// console.log('Subscription from', (client.id || client), 'to', symbol + '. Starting new polling...')
+		console.log('Subscription from', (client.id || client), 'to', symbol + '. Starting new polling...')
 		this.state[symbol] = {clients: [client], lastKnownValue: data}
 		cb && cb(null, data)
 
@@ -101,7 +100,7 @@ PollerHub.prototype.unregisterClient = function(client) {
 
 		//If no other client is listening to this symbol, clean the state.
 		if (!this.state[symbol].clients.length) {
-			// console.log('Stop polling', symbol)
+			console.log('Stop polling', symbol)
 			this.poller.stop(symbol)
 			delete this.state[symbol]
 		}

@@ -47,12 +47,18 @@ StockPoller.prototype.startLoop = function(symbol) {
 	var tick = setInterval(function() {
 
 		me.Quote({symbol: symbol}, function(err, data) {
+
+			//clearInterval does only prevent from running the loop again, it does not stop the one that was already triggered
+			//So check here, if this is a still valid thing to do.
+			if (!this.pollings[symbol]) return;
+
 			if (err || data.Status !== 'SUCCESS')
 				return onError(err || data)
 			onNewQuote(data)
-		})
 
-	}, this.interval)
+		}.bind(this))
+
+	}.bind(this), this.interval)
 
 	this.pollings[symbol] = tick
 }
@@ -70,7 +76,7 @@ StockPoller.prototype.start = function(symbol, cb) {
 
 		//mark it on demans sends .Status = SUCCESS for quotes only, so lets make a special check here.
 		if (data.Status !== 'SUCCESS')
-			return cb('Remote error for symbol ' + symbol + ': ' + body.Status + ': ' + JSON.stringify(body))
+			return cb({Message: 'Could not get quote', err: data})
 
 		this.startLoop(symbol)
 		cb(null, data)

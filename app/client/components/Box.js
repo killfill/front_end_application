@@ -12,11 +12,11 @@ module.exports = React.createClass({
 	getInitialState: function() {
 		return {
 			size: 'small',
-			data: {}
+			data: {},
+			error: false
 		}
 	},
 	onNewData: function(data) {
-		console.log('onNewData', data)
 		this.setState({data: data})
 	},
 	componentDidMount: function() {
@@ -24,7 +24,7 @@ module.exports = React.createClass({
 
 		io().emit('poll', sym, function(err, data) {
 			if (err)
-				throw err
+				return this.setState({error: err})
 
 			this.onNewData(data)
 
@@ -79,6 +79,9 @@ module.exports = React.createClass({
 		var content = Object.keys(this.state.data).length === 0
 			? <div className='body muted'>Waiting for quote...</div>
 			: this.getBoxContent(this.state.size)
+
+		if (this.state.error)
+			content = <div className='body' title={this.state.error.err.Status}>{this.state.error.Message}</div>
 
 		return (<article className={'box ' + this.state.size}>
 
