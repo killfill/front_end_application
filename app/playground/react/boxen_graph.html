@@ -7,6 +7,9 @@
 		<script src='//cdnjs.cloudflare.com/ajax/libs/react/0.10.0/JSXTransformer.js'></script>
 		<script src='//cdnjs.cloudflare.com/ajax/libs/react/0.10.0/react.min.js'></script>
 
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script src='http://dimplejs.org/dist/dimple.v2.0.0.min.js'></script>
+
 		<script type="text/jsx">
 			/** @jsx React.DOM */
 
@@ -37,17 +40,58 @@
 
 
 			var BoxContentBig = React.createClass({
+				getDefaultProps: function() {
+					return {
+						x: 'Timestamp',
+						y: 'LastPrice',
+						type: 'area',
+						interpolation: 'cardinal',
+						legend: false
+					}
+				},
+				componentDidMount: function() {
+					var svg = d3.select(this.getDOMNode())
+						.append('svg')
+							.attr('width', 390)
+							.attr('height', 180)
+
+					var raw = [
+						buildSample(),
+						buildSample(),
+						buildSample(),
+						buildSample(),
+						buildSample(),
+						buildSample(),
+						buildSample(),
+						buildSample(),
+						buildSample(),
+						buildSample(),
+						buildSample()
+					]
+
+					var c = new dimple.chart(svg, raw)
+
+					c.addCategoryAxis("x", this.props.x);
+					c.addMeasureAxis("y", this.props.y);
+					var serie = c.addSeries(null, dimple.plot[this.props.type])
+					serie.interpolation = this.props.interpolation;
+
+					if (this.props.legend)
+						c.addLegend(10, 10, 100, 20, "top");
+
+					c.draw()
+
+					this.chart = c
+				},
 				render: function() {
-					return (<div className='body'>
-						<img src='http://www.biologycorner.com/resources/graph_tadpoles.JPG' width='390' height='180' />
-					</div>)
+					return (<div className='body'></div>)
 				}
 			})
 
 			var Box = React.createClass({
 				getInitialState: function() {
 					return {
-						size: 'small'
+						size: 'graph'
 					}
 				},
 				changeSize: function() {
@@ -118,7 +162,7 @@ function buildSample(symbol) {
 	    "LastPrice": (400 + 200 * Math.random()).toFixed(2),
 	    "Change": (-20 + 40 * Math.random()).toFixed(2),
 	    "ChangePercent": -10 + 20 * Math.random(),
-	    "Timestamp": new Date().toString(),
+	    "Timestamp": 100 * Math.random(),
 	    "MSDate": 41570.568969907,
 	    "MarketCap":476497591530,
 	    "Volume":397562,
