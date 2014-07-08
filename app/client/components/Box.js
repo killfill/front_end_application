@@ -19,7 +19,8 @@ module.exports = React.createClass({
 	onNewData: function(data) {
 		this.setState({data: data})
 	},
-	componentDidMount: function() {
+
+	startPolling: function() {
 		var sym = this.props.symbol.Symbol
 
 		io().emit('poll', sym, function(err, data) {
@@ -31,6 +32,14 @@ module.exports = React.createClass({
 			io().on('data:' + sym, this.onNewData)
 
 		}.bind(this))
+	},
+	componentDidMount: function() {
+
+		this.startPolling()
+
+		//Con reconnect, start polling again..
+		io().on('connect', this.startPolling)
+
 	},
 	componentWillUnmount: function() {
 		io().removeListener('data:' + this.props.symbol.Symbol, this.onNewData)

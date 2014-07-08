@@ -20,7 +20,6 @@ module.exports = React.createClass({
 		selectedSymbols.unsubscribe(this.onSymbolChanged)
 	},
 	render: function() {
-
 		if (!this.state.list.length)
 			return <h4>Add some items with the sidebar at the left</h4>
 
