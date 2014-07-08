@@ -1,0 +1,192 @@
+<html>
+	
+	<head>
+		<link rel="stylesheet" href='../layout.css' />
+		<link rel="stylesheet" href='../boxen.css' />
+	
+		<script src='//cdnjs.cloudflare.com/ajax/libs/react/0.10.0/JSXTransformer.js'></script>
+		<script src='//cdnjs.cloudflare.com/ajax/libs/react/0.10.0/react.min.js'></script>
+
+		<script type="text/jsx">
+			/** @jsx React.DOM */
+
+			var BoxContentMed = React.createClass({
+				render: function() {
+					var d = this.props.data,
+						yearColor = d.ChangePercentYTD > 0 ? 'positive': d.ChangePercentYTD < 0 ? 'negative': ''
+
+					return (<div className='body'>
+						<table>
+							<tr><td>Price</td><td className='number'>{d.LastPrice}</td></tr>
+							<tr><td>&rarr;Open</td><td className='number'>{d.Open.toFixed(2)}</td></tr>
+							<tr><td>&darr;Low</td><td className='number'>{d.Low.toFixed(2)}</td></tr>
+							<tr><td>&uarr;High</td><td className='number'>{d.High.toFixed(2)}</td></tr>
+							<tr><td>Volume</td><td className='number'>{d.Volume}</td></tr>
+							<tr><td>Market</td><td className='number'>{d.MarketCap}</td></tr>
+							<tr><td>Year</td><td className='number'>
+								{d.ChangeYTD}
+								<span className={yearColor}> {d.ChangePercentYTD.toFixed(2)}%</span>
+								</td></tr>
+						</table>
+						<p>{new Date(d.Timestamp).toLocaleString()}</p>
+
+						<div>{d.Name}</div>
+					</div>)
+				}
+			})
+
+
+			var BoxContentBig = React.createClass({
+				render: function() {
+					return (<div className='body'>
+						<img src='http://www.biologycorner.com/resources/graph_tadpoles.JPG' width='390' height='180' />
+					</div>)
+				}
+			})
+
+			var Box = React.createClass({
+				getInitialState: function() {
+					return {
+						size: 'small'
+					}
+				},
+				changeSize: function() {
+					var curr = this.state.size
+
+					var next = curr === 'small'
+						? 'big'
+						: curr === 'big'
+							? 'graph'
+							: 'small'
+
+					this.setState({size: next})
+				},
+				getBoxContent: function(size) {
+					switch (size) {
+						case 'small':
+							return null
+						case 'big':
+							return <BoxContentMed data={this.props.data} />
+						case 'graph':
+							return <BoxContentBig data={this.props.data} />
+					}
+				},
+				render: function() {
+
+					var data = this.props.data,
+						color = '',
+						arrow = ''
+
+					if (data.Change > 0) {
+						color = 'positive'
+						arrow = '\u25b2'
+					}
+
+					if (data.Change < 0) {
+						color = 'negative'
+						arrow = '\u25bc'
+					}
+
+					var content = this.getBoxContent(this.state.size)
+
+					return (<article className={'box ' + this.state.size}>
+
+						<div className={'header ' + color}>
+							<button className='pull-left' title='Change box size' onClick={this.changeSize}>{this.state.size}</button>
+							{data.Symbol} {arrow}
+							<button className='pull-right' title='Unselect this stock'>-</button>
+						</div>
+
+						<div className={'banner ' + color + '-dark'}>
+							<span className='number pull-left' title='Change'>{data.Change}</span>
+							<span className='number pull-right'>{data.ChangePercent.toFixed(1)}%</span>
+						</div>
+
+						{content}
+
+					</article>)
+				}
+			})
+
+var n = 0
+function buildSample(symbol) {
+	symbol = symbol || 'SPL' + (n++)
+
+	return {
+	    "Name": symbol + ' Company Inc.',
+	    "Symbol": symbol,
+	    "LastPrice": (400 + 200 * Math.random()).toFixed(2),
+	    "Change": (-20 + 40 * Math.random()).toFixed(2),
+	    "ChangePercent": -10 + 20 * Math.random(),
+	    "Timestamp": new Date().toString(),
+	    "MSDate": 41570.568969907,
+	    "MarketCap":476497591530,
+	    "Volume":397562,
+	    "ChangeYTD": (400 + 200 * Math.random()).toFixed(2),
+	    "ChangePercentYTD": -5 + 10 * Math.random(),
+	    "High": 400 + 200 * Math.random(),
+	    "Low": 400 + 200 * Math.random(),
+	    "Open": 400 + 200 * Math.random()
+}
+}
+
+			var Boxen = React.createClass({
+				getInitialState: function() {
+					return {
+						list: []
+					}
+				},
+				componentDidMount: function() {
+
+					function addSample() {
+						var SAMPLE = buildSample()
+						this.setState({
+							list: this.state.list.concat([SAMPLE])
+						})
+					}
+					for (var i=0; i<2; i++)
+						addSample.call(this)
+
+					setInterval(function() {
+						var l = this.state.list.map(function(d) {
+							return buildSample(d.Symbol)
+						})
+						this.setState({
+							list: l
+						})
+					}.bind(this), 1000)
+
+				},
+				render: function() {
+					var list = this.state.list.map(function(d) {
+						return <Box data={d}>Hijito</Box>
+					})
+					return <div className='box-container'>{list}</div>
+				}
+			})
+
+			React.renderComponent(<Boxen />, document.getElementsByClassName('middle')[0])
+
+		</script>
+
+	</head>
+	<body>
+		
+		<section class="topbar">
+			<span class="project">&#8669; Stocks</span>
+			<ul class='horizontal hover'>
+				<li class='selected'> <a href="boxen.html">Dashboard</a> </li>
+				<li> <a href="table.html">Table</a> </li>
+				<li> <a href="">Graph</a> </li>
+				<li> <a href="">Benchmark</a> </li>
+				<li> <a href="">@</a> </li>
+			</ul>
+		</section>
+
+		<section class="sidebar"></section>
+
+		<section class="middle"></section>
+
+	</body>
+
+</html>
