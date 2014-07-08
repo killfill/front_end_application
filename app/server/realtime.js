@@ -2,7 +2,7 @@
 var provider = require('./StockProvider')
 
 var PollerHub = require('./PollerHub'),
-	poller = new provider.Poller({interval: 1000}),
+	poller = new provider.Poller({interval: 3000}),
 	hub = new PollerHub(poller)
 
 hub.informClient = function(client, data) {
@@ -28,7 +28,7 @@ module.exports = function(io) {
 		})
 
 		socket.on('poll', function(symbol, cb) {
-			console.log('MIRsH', symbol)
+			hub.subscribe(symbol, socket, cb)
 		})
 
 		socket.on('poll stop', function(symbol, cb) {

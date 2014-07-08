@@ -15,16 +15,27 @@ module.exports = React.createClass({
 			data: {}
 		}
 	},
-
+	onNewData: function(data) {
+		console.log('onNewData', data)
+		this.setState({data: data})
+	},
 	componentDidMount: function() {
-		io().emit('quote', this.props.symbol.Symbol, function(err, data) {
+		var sym = this.props.symbol.Symbol
+
+		io().emit('poll', sym, function(err, data) {
 			if (err)
 				throw err
 
-			this.setState({data: data})
+			this.onNewData(data)
+
+			io().on('data:'+sym, this.onNewData)
+
 		}.bind(this))
 	},
-
+	componentWillUnmount: function() {
+		console.log('Byebye!')
+		io().removeListener('data:'+this.props.symbol.Symbol, this.onNewData)
+	},
 	changeSize: function() {
 		var curr = this.state.size
 

@@ -9,7 +9,7 @@ module.exports = React.createClass({
 		var color = this.props.color,
 			data = this.props.data
 
-		if (!data || !data.Change)
+		if (!data || typeof(data.Change) === 'undefined')
 			return <span></span>
 
 		return <div className={'banner ' + color + '-dark'}>
