@@ -3,6 +3,12 @@
 var memory = {},
 	subscribed = []
 
+function stringSorter(a,b) {
+	if (a > b) return 1
+	if (a < b) return -1
+	return 0
+}
+
 module.exports = {
 
 	get: function(id) {
@@ -23,9 +29,9 @@ module.exports = {
 		return el
 	},
 
-	//Order by?
 	getAll: function() {
-		return Object.keys(memory).map(function(k) {
+
+		return Object.keys(memory).sort(stringSorter).map(function(k) {
 			return memory[k]
 		})
 	},

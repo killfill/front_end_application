@@ -25,7 +25,7 @@ module.exports = React.createClass({
 			return <h4>Add some items with the sidebar at the left</h4>
 
 		var boxes = this.state.list.map(function(d) {
-			return <Box symbol={d}></Box>
+			return <Box key={d.Symbol} symbol={d}></Box>
 		})
 		return <div className='box-container'>{boxes}</div>
 	}
