@@ -52,9 +52,9 @@ module.exports = React.createClass({
 			case 'small':
 				return null
 			case 'big':
-				return <BoxContentBig data={this.state.data} />
+				return <BoxContentBig key={this.state.data.Symbol + 'bigbox'} data={this.state.data} />
 			case 'graph':
-				return <BoxContentGraph data={this.state.data} />
+				return <BoxContentGraph key={this.state.data.Symbol + 'graph'} data={this.state.data} />
 		}
 	},
 	closeSymbol: function() {

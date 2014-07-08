@@ -12,12 +12,14 @@ module.exports = React.createClass({
 		return {
 			selected: [],
 			founded: [],
-			isSearching: false
+			isSearching: false,
+			error: false
 		}
 	},
 
 	componentDidMount: function() {
 		store.subscribe(this.onStoreChanged)
+		this.refs.searchText.getDOMNode().focus()
 	},
 	componentWillUnmount: function() {
 		store.unsubscribe(this.onStoreChanged)
@@ -40,10 +42,12 @@ module.exports = React.createClass({
 
 	handleStockSelect: function(stock) {
 		actions.add(stock)
+		this.refs.searchText.getDOMNode().focus()
 	},
 
 	handleStockUnselect: function(stock) {
 		actions.remove(stock)
+		this.refs.searchText.getDOMNode().focus()
 	},
 
 	//Filter the found symbols that are already selected
@@ -65,9 +69,10 @@ module.exports = React.createClass({
 		this.setState({isSearching: val, founded: []})
 		io().emit('search', val, function(err, found) {
 			if (err)
-				throw err
+				return this.setState({error: err})
 
 			this.setState({
+				error: false,
 				isSearching: false,
 				founded: this.filterFoundSymbols(found)
 			})
@@ -89,11 +94,14 @@ module.exports = React.createClass({
 		if (this.state.isSearching)
 			foundH4 = 'Looking for ' + this.state.isSearching
 
+		if (this.state.error)
+			foundH4 = 'There is a problem: ' + (this.state.error.code || this.state.error)
+
 		return (<span>
 			<h4>{selectedH4}</h4>
 			<StockList data={this.state.selected} onClick={this.handleStockUnselect} hoverChar='-' />
 			<form onSubmit={this.handleSearch}>
-				<input ref='searchText' type="text" placeholder='Search for ...' />
+				<input ref='searchText' type="text" placeholder='Search for ...'/>
 			</form>
 			<h4>{foundH4}</h4>
 			<StockList data={this.state.founded} onClick={this.handleStockSelect} hoverChar='+' />

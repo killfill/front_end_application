@@ -8,8 +8,19 @@ function PollerHub(poller) {
 	//I.e. {AAPL: clients[], lastKnownValue: {}}
 	this.state = {}
 
+	this.pollerHasProblems = false
+	this.onNewPollerStatus = function(working) {
+		console.log('(override me) onNewPollerStatus:', working)
+	}
+
 	//When new data arrived, inform all clients about it.
 	this.poller.onNewQuote = function(data) {
+
+		//call onNewPollerStatus telling we have a successfull quoting
+		if (this.pollerHasProblems) {
+			this.pollerHasProblems = false
+			this.onNewPollerStatus()
+		}
 
 		var state = this.state[data.Symbol]
 
@@ -21,6 +32,18 @@ function PollerHub(poller) {
 
 		}.bind(this))
 
+	}.bind(this)
+
+	//Catch up errors!
+	this.poller.onError = function(err) {
+
+		//call onNewPollerStatus telling we have an error
+		if (!this.pollerHasProblems) {
+			this.pollerHasProblems = true
+			this.onNewPollerStatus(err)
+		}
+
+		console.log('--> Got an error when polling..', (err.code || err))
 	}.bind(this)
 }
 
@@ -77,7 +100,7 @@ PollerHub.prototype.unsubscribe = function(symbol, client) {
 
 	//If no more clients are listening, stop polling and reset the state for the symbol
 	if (!state.length) {
-		// console.log('Stop polling', symbol)
+		console.log('Stop polling', symbol)
 		this.poller.stop(symbol)
 		delete this.state[symbol]
 	}
