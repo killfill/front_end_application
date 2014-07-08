@@ -13,11 +13,27 @@ module.exports = React.createClass({
 		return {
 			size: 'small',
 			data: {},
+			dataHistory: [],
 			error: false
 		}
 	},
 	onNewData: function(data) {
-		this.setState({data: data})
+
+		var h = this.state.dataHistory
+		h.push(data)
+
+		if (h.length > 20)
+			h.shift()
+
+		//Put an id on the data...
+		h.forEach(function(d, idx) {
+			d.id = idx
+		})
+
+		this.setState({
+			data: data,
+			dataHistory: h
+		})
 	},
 
 	startPolling: function() {
@@ -37,8 +53,8 @@ module.exports = React.createClass({
 
 		this.startPolling()
 
-		//Con reconnect, start polling again..
-		io().on('connect', this.startPolling)
+		//Con reconnect, start polling again. Not working well.. :S
+		// io().on('connect', this.startPolling)
 
 	},
 	componentWillUnmount: function() {
@@ -63,7 +79,7 @@ module.exports = React.createClass({
 			case 'big':
 				return <BoxContentBig key={this.state.data.Symbol + 'bigbox'} data={this.state.data} />
 			case 'graph':
-				return <BoxContentGraph key={this.state.data.Symbol + 'graph'} data={this.state.data} />
+				return <BoxContentGraph key={this.state.data.Symbol + 'graph'} data={this.state.dataHistory} />
 		}
 	},
 	closeSymbol: function() {
@@ -90,7 +106,7 @@ module.exports = React.createClass({
 			: this.getBoxContent(this.state.size)
 
 		if (this.state.error)
-			content = <div className='body' title={this.state.error.err.Status}>{this.state.error.Message}</div>
+			content = <div className='body' title={this.state.error.err && this.state.error.err.Status || JSON.stringify(this.state.error)}>{this.state.error.Message}</div>
 
 		return (<article className={'box ' + this.state.size}>
 
