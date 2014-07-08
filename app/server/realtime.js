@@ -5,6 +5,10 @@ var PollerHub = require('./PollerHub'),
 	poller = new provider.Poller({interval: 1000}),
 	hub = new PollerHub(poller)
 
+hub.informClient = function(client, data) {
+	client.emit('data:' + data.Symbol, data)
+}
+
 module.exports = function(io) {
 
 	io.on('connection', function(socket) {
@@ -24,7 +28,7 @@ module.exports = function(io) {
 		})
 
 		socket.on('poll', function(symbol, cb) {
-			hub.subscribe(symbol, socket, cb)
+			console.log('MIRsH', symbol)
 		})
 
 		socket.on('poll stop', function(symbol, cb) {
