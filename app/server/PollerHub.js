@@ -4,13 +4,23 @@
 function PollerHub(poller) {
 	if (!poller) throw new Error('Need a poller!')
 	this.poller = poller
+
+	//I.e. {AAPL: clients[], lastKnownValue: {}}
 	this.state = {}
 
 	//When new data arrived, inform all clients about it.
 	this.poller.onNewQuote = function(data) {
-		this.state[data.Symbol].forEach(function(client) {
+
+		var state = this.state[data.Symbol]
+
+		//Remember the new polled data of the symbol, so when new clients connect, can send this right away.
+		state.lastKnownValue = data
+
+		state.clients.forEach(function(client) {
 			this.informClient(client, data)
+
 		}.bind(this))
+
 	}.bind(this)
 }
 
@@ -25,12 +35,12 @@ PollerHub.prototype.subscribe = function(symbol, client, cb) {
 	//If symbol is already in the state, add the client to the notification list.
 	if (state) {
 
-		if (state.indexOf(client) > -1)
+		if (state.clients.indexOf(client) > -1)
 			return cb('Client already registerd to this symbol')
 
 		// console.log('Subscription from', (client.id || client), 'to', symbol + '. Polling already setup, adding to the listeners.')
-		state.push(client)		
-		return cb(null, 'Suscrito a' + symbol + ' que ya lo tengo.. ;)')
+		state.clients.push(client)
+		return cb(null, state.lastKnownValue)
 	}
 	
 	//If not, start a new poll
@@ -39,7 +49,7 @@ PollerHub.prototype.subscribe = function(symbol, client, cb) {
 		if (err) return cb(err)
 
 		// console.log('Subscription from', (client.id || client), 'to', symbol + '. Starting new polling...')
-		this.state[symbol] = [client]
+		this.state[symbol] = {clients: [client], lastKnownValue: data}
 		cb && cb(null, data)
 
 	}.bind(this))
@@ -57,14 +67,14 @@ PollerHub.prototype.unsubscribe = function(symbol, client) {
 	}
 
 
-	var idx = state.indexOf(client)
+	var idx = state.clients.indexOf(client)
 	
 	if (idx < 0) {
 		// console.log('unsubscribe error. Cannot find', (client.id || client), 'on my list!')
 		return false
 	}
 
-	state.splice(idx, 1)
+	state.clients.splice(idx, 1)
 
 	//If no more clients are listening, stop polling and reset the state for the symbol
 	if (!state.length) {
@@ -85,12 +95,12 @@ PollerHub.prototype.unregisterClient = function(client) {
 		var state = this.state[symbol]
 
 		//Delete the client
-		var idx = state.indexOf(client)
+		var idx = state.clients.indexOf(client)
 		if (idx > -1 )
-			state.splice(idx, 1)
+			state.clients.splice(idx, 1)
 
 		//If no other client is listening to this symbol, clean the state.
-		if (!this.state[symbol].length) {
+		if (!this.state[symbol].clients.length) {
 			// console.log('Stop polling', symbol)
 			this.poller.stop(symbol)
 			delete this.state[symbol]
