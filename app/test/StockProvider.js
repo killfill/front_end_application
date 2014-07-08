@@ -40,20 +40,20 @@ describe('StockProvider:Lookup', function() {
 describe('StockProvider:Poller', function() {
 
 
-	it('Should subscribe and unsubscribe', function(done) {
+	it('Should start and stop polling', function(done) {
 
 		var poller = new provider.Poller({interval: 500})
 
-		poller.subscribe('AAPL', function(err, data) {
+		poller.start('AAPL', function(err, data) {
 
-			assert.equal(err, null, 'Could not subscribe')
+			assert.equal(err, null, 'Could not start')
 			assert.equal(typeof data.LastPrice, 'number', 'Not valid data')
 
-			var res = poller.unsubscribe('AAPL')
-			assert.equal(res, true, 'Could not unsubscribe')
+			var res = poller.stop('AAPL')
+			assert.equal(res, true, 'Could not stop polling')
 
-			res = poller.unsubscribe('AAPL')
-			assert.equal(res, false, 'Should not unsubscribe twice')
+			res = poller.stop('AAPL')
+			assert.equal(res, false, 'Should not let stop twice')
 
 			done()
 
@@ -75,7 +75,7 @@ describe('StockProvider:Poller', function() {
 			done()
 		}
 
-		poller.subscribe('AAPL', function(err, data) {
+		poller.start('AAPL', function(err, data) {
 			assert.equal(typeof data.LastPrice, 'number', 'Not valid data')
 		})
 

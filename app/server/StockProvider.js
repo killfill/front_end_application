@@ -40,7 +40,7 @@ function StockPoller(opts) {
 
 }
 
-StockPoller.prototype.start = function(symbol) {
+StockPoller.prototype.startLoop = function(symbol) {
 	var onError = this.onError,
 		onNewQuote = this.onNewQuote
 
@@ -57,7 +57,7 @@ StockPoller.prototype.start = function(symbol) {
 	this.pollings[symbol] = tick
 }
 
-StockPoller.prototype.subscribe = function(symbol, cb) {
+StockPoller.prototype.start = function(symbol, cb) {
 
 	//Check if already present.
 	if (this.pollings[symbol])
@@ -72,14 +72,14 @@ StockPoller.prototype.subscribe = function(symbol, cb) {
 		if (data.Status !== 'SUCCESS')
 			return cb('Remote error for symbol ' + symbol + ': ' + body.Status + ': ' + JSON.stringify(body))
 
-		this.start(symbol)
+		this.startLoop(symbol)
 		cb(null, data)
 
 	}.bind(this))
 
 }
 
-StockPoller.prototype.unsubscribe = function(symbol) {
+StockPoller.prototype.stop = function(symbol) {
 	if (!this.pollings[symbol])
 		return false
 
@@ -90,7 +90,3 @@ StockPoller.prototype.unsubscribe = function(symbol) {
 
 module.exports.Poller = StockPoller
 
-
-if (require.main === module) {
-
-}
