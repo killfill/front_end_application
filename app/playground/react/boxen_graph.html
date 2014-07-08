@@ -44,32 +44,27 @@
 					return {
 						x: 'Timestamp',
 						y: 'LastPrice',
-						type: 'area',
+						type: 'line',
 						interpolation: 'cardinal',
-						legend: false
+						legend: false,
+						data: [],
+						transition: null //200
 					}
 				},
-				componentDidMount: function() {
-					var svg = d3.select(this.getDOMNode())
-						.append('svg')
-							.attr('width', 390)
-							.attr('height', 180)
+				componentWillReceiveProps: function(props) {
 
-					var raw = [
-						buildSample(),
-						buildSample(),
-						buildSample(),
-						buildSample(),
-						buildSample(),
-						buildSample(),
-						buildSample(),
-						buildSample(),
-						buildSample(),
-						buildSample(),
-						buildSample()
-					]
+					if (!this.chart) this.createDimple()
 
-					var c = new dimple.chart(svg, raw)
+					this.chart.data = props.data
+					this.chart.draw(this.props.transition)
+				},
+				// Did not really notic any performance difference, so just leave it out.. :P
+				// shouldComponentUpdate: function(props) {
+				// 	return false
+				// },
+				createDimple: function() {
+
+					var c = new dimple.chart(this.svg, this.props.data)
 
 					c.addCategoryAxis("x", this.props.x);
 					c.addMeasureAxis("y", this.props.y);
@@ -79,10 +74,16 @@
 					if (this.props.legend)
 						c.addLegend(10, 10, 100, 20, "top");
 
-					c.draw()
-
 					this.chart = c
+
 				},
+				componentDidMount: function() {
+					this.svg = d3.select(this.getDOMNode())
+						.append('svg')
+							.attr('width', 390)
+							.attr('height', 180)
+				},
+
 				render: function() {
 					return (<div className='body'></div>)
 				}
@@ -91,8 +92,22 @@
 			var Box = React.createClass({
 				getInitialState: function() {
 					return {
-						size: 'graph'
+						size: 'graph',
+						dataHistory: []
 					}
+				},
+				componentDidMount: function() {
+					setInterval(function() {
+						this.onNewData(buildSample('HeyHo'))
+					}.bind(this), 1000)
+				},
+				onNewData: function(data) {
+					this.state.dataHistory.push(data)
+
+					if (this.state.dataHistory.length > 20)
+						this.state.dataHistory.shift()
+
+					this.setState({dataHistory: this.state.dataHistory})
 				},
 				changeSize: function() {
 					var curr = this.state.size
@@ -112,7 +127,7 @@
 						case 'big':
 							return <BoxContentMed data={this.props.data} />
 						case 'graph':
-							return <BoxContentBig data={this.props.data} />
+							return <BoxContentBig data={this.state.dataHistory} />
 					}
 				},
 				render: function() {
@@ -162,7 +177,8 @@ function buildSample(symbol) {
 	    "LastPrice": (400 + 200 * Math.random()).toFixed(2),
 	    "Change": (-20 + 40 * Math.random()).toFixed(2),
 	    "ChangePercent": -10 + 20 * Math.random(),
-	    "Timestamp": 100 * Math.random(),
+	    "Timestamp": new Date().toString(),
+	    // "Timestamp": 100 * Math.random(),
 	    "MSDate": 41570.568969907,
 	    "MarketCap":476497591530,
 	    "Volume":397562,
@@ -188,7 +204,7 @@ function buildSample(symbol) {
 							list: this.state.list.concat([SAMPLE])
 						})
 					}
-					for (var i=0; i<2; i++)
+					for (var i=0; i<5; i++)
 						addSample.call(this)
 
 					setInterval(function() {
