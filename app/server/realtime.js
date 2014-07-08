@@ -1,15 +1,20 @@
 
-var provider = require('./StockProvider')
+module.exports = function(io, opts) {
 
-var PollerHub = require('./PollerHub'),
-	poller = new provider.Poller({interval: 3000}),
-	hub = new PollerHub(poller)
+	var provider = require('./StockProvider')
 
-hub.informClient = function(client, data) {
-	client.emit('data:' + data.Symbol, data)
-}
+	var PollerHub = require('./PollerHub'),
+		poller = new provider.Poller({interval: opts.interval || 1000}),
+		hub = new PollerHub(poller)
 
-module.exports = function(io) {
+	hub.informClient = function(client, data) {
+		client.emit('data:' + data.Symbol, data)
+	}
+
+
+	hub.onNewPollerStatus = function(err) {
+		io.emit('poller status', err)
+	}
 
 	io.on('connection', function(socket) {
 		console.log('> Hi', socket.id)

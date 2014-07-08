@@ -8,8 +8,19 @@ function PollerHub(poller) {
 	//I.e. {AAPL: clients[], lastKnownValue: {}}
 	this.state = {}
 
+	this.pollerHasProblems = false
+	this.onNewPollerStatus = function(working) {
+		console.log('(override me) onNewPollerStatus:', working)
+	}
+
 	//When new data arrived, inform all clients about it.
 	this.poller.onNewQuote = function(data) {
+
+		//call onNewPollerStatus telling we have a successfull quoting
+		if (this.pollerHasProblems) {
+			this.pollerHasProblems = false
+			this.onNewPollerStatus()
+		}
 
 		var state = this.state[data.Symbol]
 
@@ -25,8 +36,15 @@ function PollerHub(poller) {
 
 	//Catch up errors!
 	this.poller.onError = function(err) {
-		console.log('Got an error when polling..', (err.code || err))
-	}
+
+		//call onNewPollerStatus telling we have an error
+		if (!this.pollerHasProblems) {
+			this.pollerHasProblems = true
+			this.onNewPollerStatus(err)
+		}
+
+		console.log('--> Got an error when polling..', (err.code || err))
+	}.bind(this)
 }
 
 PollerHub.prototype.informClient = function(data, client) {

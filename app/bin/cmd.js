@@ -1,17 +1,20 @@
 #!/usr/bin/env node
 
 var minimist = require('minimist'),
-	app = require('../server')
+	Server = require('../server')
 
 var argv = minimist(process.argv.slice(2), {
         default: {
                 port: 3000,
-                livereload: false
+                livereload: false,
+                pollingInterval: 5000
         }
 });
 
 if (argv.help || argv.h)
-	return console.log(['--port, --livereload'].join('\n'))
+	return console.log(['--port, --livereload', '--pollingInterval'].join('\n'))
+
+var app = Server({interval: argv.pollingInterval})
 
 app.http.listen(argv.port)
 console.log('Running on port', argv.port)
