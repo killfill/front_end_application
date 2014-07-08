@@ -32,10 +32,10 @@ function StockPoller(opts) {
 
 	//Emit the data comming to the listener.
 	this.onNewQuote = function(data) {
-		console.log('Override me: onNewQuote', data)
+		throw new Error('Override me: onNewQuote')
 	}
 	this.onError = function(err) {
-		console.log('Override me: onError', err)
+		throw err
 	}
 
 }

@@ -1,9 +1,5 @@
-
-
-
 var assert = require('assert'),
 	provider = require('../server/StockProvider')
-
 
 describe('StockProvider:Quote', function() {
 
@@ -17,7 +13,7 @@ describe('StockProvider:Quote', function() {
 
 	it('Should quote valid symbol', function(done) {
 		provider.Quote({symbol: 'AAPL'}, function(err, data) {
-			assert.equal(err, null, 'Unexpected error')
+			assert.equal(err, null, err)
 			assert.equal(typeof data, typeof {}, 'Has data')
 			assert.equal(typeof data.LastPrice, 'number', 'Should return LastPrice')
 			done()
@@ -30,6 +26,7 @@ describe('StockProvider:Lookup', function() {
 
 	it('Should find Apple', function(done) {
 		provider.Lookup({input: 'Apple'}, function(err, data) {
+			assert.equal(err, null, 'Could not Lookup' + (err && err.stack))
 			assert.equal(data.length, 2, 'Apple not found')
 			done()
 		})
@@ -46,7 +43,7 @@ describe('StockProvider:Poller', function() {
 
 		poller.start('AAPL', function(err, data) {
 
-			assert.equal(err, null, 'Could not start')
+			assert.equal(err, null, 'Could not start' + (err && err.stack))
 			assert.equal(typeof data.LastPrice, 'number', 'Not valid data')
 
 			var res = poller.stop('AAPL')
@@ -76,6 +73,7 @@ describe('StockProvider:Poller', function() {
 		}
 
 		poller.start('AAPL', function(err, data) {
+			assert.equal(err, null, 'Unexpected error event on poller' + (err && err.stack))
 			assert.equal(typeof data.LastPrice, 'number', 'Not valid data')
 		})
 
