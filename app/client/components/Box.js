@@ -28,13 +28,12 @@ module.exports = React.createClass({
 
 			this.onNewData(data)
 
-			io().on('data:'+sym, this.onNewData)
+			io().on('data:' + sym, this.onNewData)
 
 		}.bind(this))
 	},
 	componentWillUnmount: function() {
-		console.log('Byebye!')
-		io().removeListener('data:'+this.props.symbol.Symbol, this.onNewData)
+		io().removeListener('data:' + this.props.symbol.Symbol, this.onNewData)
 	},
 	changeSize: function() {
 		var curr = this.state.size

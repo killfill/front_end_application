@@ -4,7 +4,7 @@
 function PollerHub(poller) {
 	if (!poller) throw new Error('Need a poller!')
 	this.poller = poller
-	this.state = []
+	this.state = {}
 
 	//When new data arrived, inform all clients about it.
 	this.poller.onNewQuote = function(data) {
@@ -68,6 +68,7 @@ PollerHub.prototype.unsubscribe = function(symbol, client) {
 
 	//If no more clients are listening, stop polling and reset the state for the symbol
 	if (!state.length) {
+		// console.log('Stop polling', symbol)
 		this.poller.stop(symbol)
 		delete this.state[symbol]
 	}
@@ -90,13 +91,12 @@ PollerHub.prototype.unregisterClient = function(client) {
 
 		//If no other client is listening to this symbol, clean the state.
 		if (!this.state[symbol].length) {
+			// console.log('Stop polling', symbol)
 			this.poller.stop(symbol)
 			delete this.state[symbol]
 		}
 	
 	}.bind(this))
-
-
 }
 
 module.exports = PollerHub

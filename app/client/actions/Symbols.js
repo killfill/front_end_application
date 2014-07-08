@@ -15,6 +15,9 @@ module.exports = {
 
 	remove: function(data) {
 		store.remove(data.Symbol)
+
+		//Stop polling
+		io().emit('poll stop', data.Symbol)
 	}
 
 }

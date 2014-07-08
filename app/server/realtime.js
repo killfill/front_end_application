@@ -31,8 +31,8 @@ module.exports = function(io) {
 			hub.subscribe(symbol, socket, cb)
 		})
 
-		socket.on('poll stop', function(symbol, cb) {
-			hub.unsubscribe(symbol, socket, cb)
+		socket.on('poll stop', function(symbol) {
+			hub.unsubscribe(symbol, socket)
 		})
 
 	})
