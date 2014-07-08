@@ -198,3 +198,9 @@ button:hover {
 .strong {
 	font-weight: bold;
 }
+
+#connected {
+	color: #134158;
+	padding: 16px;
+	float: right;
+}

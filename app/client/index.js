@@ -4,15 +4,14 @@
 
 var Sidebar = require('./components/Sidebar'),
 	Boxes = require('./components/Boxes'),
-	Table = require('./components/Table')
+	Table = require('./components/Table'),
+	Connected = require('./components/Connected')
 
 React.renderComponent(<Sidebar/>, document.getElementsByClassName('sidebar')[0])
-
-
+React.renderComponent(<Connected/>, document.getElementById('connected'))
 
 React.renderComponent(<Boxes/>, document.getElementsByClassName('middle')[0])
 //Just focus on the boxes list.. :P
-
 
 // function random(from, to, comma) {
 // 	//Numbers after the comma
