@@ -93,6 +93,19 @@ module.exports.StockPoller = StockPoller
 
 if (require.main === module) {
 
+
+	//This will trigger an ECONNRESET
+	var poller = new me.StockPoller({interval: 400})
+	poller.onNewQuote = function(data) {
+		console.log('PINGI', data.Symbol, data.LastPrice)
+	}
+	poller.onError = function(err) {
+		console.log('ERROR!', err)
+	}
+	poller.start('AAPL')
+
+	return
+
 	// TESTs
 	var assert = require('assert')
 	

@@ -12,7 +12,8 @@ module.exports = React.createClass({
 		return {
 			selected: [],
 			founded: [],
-			isSearching: false
+			isSearching: false,
+			error: false
 		}
 	},
 
@@ -65,7 +66,7 @@ module.exports = React.createClass({
 		this.setState({isSearching: val, founded: []})
 		io().emit('search', val, function(err, found) {
 			if (err)
-				throw err
+				return this.setState({error: err})
 
 			this.setState({
 				isSearching: false,
@@ -88,6 +89,9 @@ module.exports = React.createClass({
 
 		if (this.state.isSearching)
 			foundH4 = 'Looking for ' + this.state.isSearching
+
+		if (this.state.error)
+			foundH4 = 'There is a problem: ' + (this.state.error.code || this.state.error)
 
 		return (<span>
 			<h4>{selectedH4}</h4>

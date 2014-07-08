@@ -11,6 +11,7 @@
 
 .box.big {
 	width: 200px;
+	min-height: 318px;
 }
 
 .box.graph {

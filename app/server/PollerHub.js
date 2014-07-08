@@ -22,6 +22,11 @@ function PollerHub(poller) {
 		}.bind(this))
 
 	}.bind(this)
+
+	//Catch up errors!
+	this.poller.onError = function(err) {
+		console.log('Got an error when polling..', (err.code || err))
+	}
 }
 
 PollerHub.prototype.informClient = function(data, client) {
@@ -77,7 +82,7 @@ PollerHub.prototype.unsubscribe = function(symbol, client) {
 
 	//If no more clients are listening, stop polling and reset the state for the symbol
 	if (!state.length) {
-		// console.log('Stop polling', symbol)
+		console.log('Stop polling', symbol)
 		this.poller.stop(symbol)
 		delete this.state[symbol]
 	}
