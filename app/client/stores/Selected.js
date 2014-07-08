@@ -9,6 +9,9 @@ function stringSorter(a,b) {
 	return 0
 }
 
+if (localStorage.selectedStore)
+	memory = JSON.parse(localStorage.selectedStore)
+
 module.exports = {
 
 	get: function(id) {
@@ -30,7 +33,6 @@ module.exports = {
 	},
 
 	getAll: function() {
-
 		return Object.keys(memory)
 			// .sort(stringSorter)
 			.map(function(k) {
@@ -40,6 +42,10 @@ module.exports = {
 
 	//Simpliest pub/sub thing...
 	emit: function() {
+
+		//All modifications triggers this action. Persist the data here.. bad me bad me.. :P
+		localStorage.selectedStore = JSON.stringify(memory)
+
 		subscribed.forEach(function(sub) {
 			sub(this.getAll())
 		}.bind(this))

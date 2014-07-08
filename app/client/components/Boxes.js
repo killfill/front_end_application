@@ -8,7 +8,7 @@ var Box = require('./Box'),
 
 module.exports = React.createClass({
 	getInitialState: function() {
-		return {list: []}
+		return {list: selectedSymbols.getAll()}
 	},
 	onSymbolChanged: function(list) {
 		this.setState({list: list})

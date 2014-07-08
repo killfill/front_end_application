@@ -10,7 +10,7 @@ module.exports = React.createClass({
 
 	getInitialState: function() {
 		return {
-			selected: [],
+			selected: store.getAll(),
 			founded: [],
 			isSearching: false,
 			error: false
@@ -21,6 +21,7 @@ module.exports = React.createClass({
 		store.subscribe(this.onStoreChanged)
 		this.refs.searchText.getDOMNode().focus()
 	},
+
 	componentWillUnmount: function() {
 		store.unsubscribe(this.onStoreChanged)
 	},
