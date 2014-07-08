@@ -3,6 +3,7 @@
 	margin: 10px;
 	float: left;
 	border-radius: 4px;
+	box-shadow: 5px 2px 10px 0px gray;
 }
 
 .box.small {
