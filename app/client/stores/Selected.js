@@ -31,9 +31,11 @@ module.exports = {
 
 	getAll: function() {
 
-		return Object.keys(memory).sort(stringSorter).map(function(k) {
-			return memory[k]
-		})
+		return Object.keys(memory)
+			// .sort(stringSorter)
+			.map(function(k) {
+				return memory[k]
+			})
 	},
 
 	//Simpliest pub/sub thing...
