@@ -40,9 +40,9 @@ module.exports = React.createClass({
 				sel.Symbol, 
 				handlePolledData, 
 				function e(err) {
-					console.error(err)
 					console.log('Could not start polling', sel.Symbol, 'Will remove it from the selected symbols list to preserve consistent state')
-					actions.remove(sel.Symbol)
+					console.log(err.Message || err)
+					actions.remove(sel)
 				}
 			)
 		}
@@ -50,11 +50,28 @@ module.exports = React.createClass({
 		//Start polling for data on the already selected list of symbols
 		this.props.selected.forEach(poll)
 
-		//Start polling as new symbols get added. Subscribe gives us all the symbols. Maybe would be a good idea to add a 'onAdd' event or something...
+		//Start polling as new symbols get added. Subscribe gives us all the symbols. 
+		//Maybe would be a good idea to add a 'onAdd' and 'onRm' event so we dont need to do this mess...
 		selectedStore.subscribe(function(all) {
+
+			//Add symbols we dont already have
 			all.forEach(function(i) {
 				if (!data[i.Symbol])
 					poll(i)
+			})
+
+			//Remove symbols that are not longer present.
+			Object.keys(data).forEach(function(mine) {
+				var isPresent = false
+				all.forEach(function(their) {
+					if (mine == their.Symbol)
+						isPresent = true
+				})
+
+				if (!isPresent) {
+					console.log('TODO: remove', mine, 'from this table list... :P')
+				}
+
 			})
 		})
 
