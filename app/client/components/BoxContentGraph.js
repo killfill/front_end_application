@@ -17,10 +17,10 @@ module.exports = React.createClass({
 
 	updateGraph: function(props) {
 		var min = props.data.reduce(function(a,b) { return Math.min(a, b[this.props.y]) }.bind(this), 99999999)
-		this.yAxis.overrideMin = min - 1
+		this.yAxis.overrideMin = min - .1
 
 		var max = props.data.reduce(function(a,b) { return Math.max(a, b[this.props.y]) }.bind(this), 0)
-		this.yAxis.overrideMax = max + 1
+		this.yAxis.overrideMax = max + .1
 
 		this.chart.data = props.data
 		this.chart.draw(this.props.transition)
