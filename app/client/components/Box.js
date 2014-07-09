@@ -51,7 +51,7 @@ module.exports = React.createClass({
 		// io().on('connect', this.startListening)
 	},
 	componentWillUnmount: function() {
-		this.stopListening(this.props.symbol.Symbol, this.onNewData)
+		this.stopListening(this.props.symbol.Symbol, this.handlePolledData)
 	},
 	changeSize: function() {
 		var curr = this.state.size
@@ -99,7 +99,7 @@ module.exports = React.createClass({
 			: this.getBoxContent(this.state.size)
 
 		if (this.state.error)
-			content = <div className='body' title={this.state.error.err && this.state.error.err.Status || JSON.stringify(this.state.error)}>{this.state.error.Message || this.state.error}</div>
+			content = <div className='body' title={this.state.error.err && this.state.error.err.Status || JSON.stringify(this.state.error)}>{this.state.error.Message || this.state.error.code || this.state.error}</div>
 
 		return (<article className={'box ' + this.state.size}>
 

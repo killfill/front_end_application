@@ -4,7 +4,7 @@
 
 var Sidebar = require('./components/Sidebar'),
 	Boxes = require('./components/Boxes'),
-	Table = require('./components/Table'),
+	TableManager = require('./components/TableManager'),
 	Connected = require('./components/Connected'),
 	Menu = require('./components/Menu')
 
@@ -24,7 +24,7 @@ page('/', function() {
 
 page('/table', function() {
 	React.renderComponent(<Menu selected='/table' />, menu)
-	React.renderComponent(<Table data={tableData} columns={columsConfig} initialSortBy='Price' className='large-table hover'/>, container)
+	React.renderComponent(<TableManager/>, container)
 })
 
 page('/graph', function() {

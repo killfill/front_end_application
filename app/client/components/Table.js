@@ -58,7 +58,11 @@ module.exports = React.createClass({
 					? col.cls(row)
 					: col.cls
 
-				return <td className={cls}>{this.getValue(row, col)}</td>
+				var showText = this.getValue(row, col)
+				if (col.commas)
+					showText = showText.toFixed(col.commas)
+
+				return <td className={cls}>{showText}</td>
 			}.bind(this))
 
 			return <tr>{cells}</tr>
