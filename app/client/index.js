@@ -5,12 +5,49 @@
 var Sidebar = require('./components/Sidebar'),
 	Boxes = require('./components/Boxes'),
 	Table = require('./components/Table'),
-	Connected = require('./components/Connected')
+	Connected = require('./components/Connected'),
+	Menu = require('./components/Menu')
 
-React.renderComponent(<Sidebar/>, document.getElementsByClassName('sidebar')[0])
 React.renderComponent(<Connected/>, document.getElementById('connected'))
+React.renderComponent(<Sidebar/>, document.getElementsByClassName('sidebar')[0])
 
-React.renderComponent(<Boxes/>, document.getElementsByClassName('middle')[0])
+
+/* Routing stuff */
+
+var menu = document.getElementById('menu'),
+	container = document.getElementsByClassName('middle')[0]
+
+page('/', function() {
+	React.renderComponent(<Menu/>, menu)
+	React.renderComponent(<Boxes/>, container)
+})
+
+page('/table', function() {
+	React.renderComponent(<Menu selected='/table' />, menu)
+	React.renderComponent(<div>TABLE</div>, container)
+})
+
+page('/graph', function() {
+	React.renderComponent(<Menu selected='/graph' />, menu)
+	React.renderComponent(<div>GRAPH</div>, container)
+})
+
+page('/bench', function() {
+	React.renderComponent(<Menu selected='/bench' />, menu)
+	React.renderComponent(<div>BENCH</div>, container)
+})
+
+page('/about', function() {
+	React.renderComponent(<Menu selected='/about' />, menu)
+	React.renderComponent(<div>ABOUT</div>, container)
+})
+
+page('*', function() {
+	console.log('Nooooo')
+})
+
+page()
+
 //Just focus on the boxes list.. :P
 
 // function random(from, to, comma) {
