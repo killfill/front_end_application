@@ -79,7 +79,7 @@ module.exports = React.createClass({
 			case 'big':
 				return <BoxContentBig key={this.state.data.Symbol + 'bigbox'} data={this.state.data} />
 			case 'graph':
-				return <BoxContentGraph key={this.state.data.Symbol + 'graph'} data={this.state.dataHistory} />
+				return <BoxContentGraph key={this.state.data.Symbol + 'graph'} data={this.state.dataHistory} y='LastPrice' />
 		}
 	},
 	closeSymbol: function() {
