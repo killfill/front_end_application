@@ -6,7 +6,8 @@ var Sidebar = require('./components/Sidebar'),
 	Boxes = require('./components/Boxes'),
 	TableManager = require('./components/TableManager'),
 	Connected = require('./components/Connected'),
-	Menu = require('./components/Menu')
+	Menu = require('./components/Menu'),
+	BigGraph = require('./components/BigGraph')
 
 React.renderComponent(<Connected/>, document.getElementById('connected'))
 React.renderComponent(<Sidebar/>, document.getElementsByClassName('sidebar')[0])
@@ -29,7 +30,7 @@ page('/table', function() {
 
 page('/graph', function() {
 	React.renderComponent(<Menu selected='/graph' />, menu)
-	React.renderComponent(<div>GRAPH</div>, container)
+	React.renderComponent(<BigGraph/>, container)
 })
 
 page('/bench', function() {

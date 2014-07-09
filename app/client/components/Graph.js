@@ -11,7 +11,8 @@ module.exports = React.createClass({
 			interpolation: 'cardinal',
 			legend: false,
 			data: [],
-			transition: null //200
+			transition: null, //200,
+			groupBy: null
 		}
 	},
 
@@ -43,7 +44,7 @@ module.exports = React.createClass({
 
 		this.yAxis = c.addMeasureAxis("y", this.props.y)
 
-		var serie = c.addSeries(null, dimple.plot[this.props.type])
+		var serie = c.addSeries(this.props.groupBy, dimple.plot[this.props.type])
 
 		serie.interpolation = this.props.interpolation
 

@@ -3,7 +3,7 @@
   */
 
 var BoxContentBig = require('./BoxContentBig'),
-	BoxContentGraph = require('./BoxContentGraph'),
+	Graph = require('./Graph'),
 	BoxBanner = require('./BoxBanner'),
 	actions = require('../actions/Symbols'),
 	pollingMixin = require('../mixins/Polling')
@@ -72,7 +72,7 @@ module.exports = React.createClass({
 			case 'big':
 				return <BoxContentBig key={this.state.data.Symbol + 'bigbox'} data={this.state.data} />
 			case 'graph':
-				return <BoxContentGraph key={this.state.data.Symbol + 'graph'} data={this.state.dataHistory} y='LastPrice' />
+				return <Graph key={this.state.data.Symbol + 'graph'} data={this.state.dataHistory} y='LastPrice' />
 		}
 	},
 	closeSymbol: function() {
