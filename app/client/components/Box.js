@@ -5,9 +5,12 @@
 var BoxContentBig = require('./BoxContentBig'),
 	BoxContentGraph = require('./BoxContentGraph'),
 	BoxBanner = require('./BoxBanner'),
-	actions = require('../actions/Symbols')
+	actions = require('../actions/Symbols'),
+	pollingMixin = require('../mixins/Polling')
 
 module.exports = React.createClass({
+
+	mixins: [pollingMixin],
 
 	getInitialState: function() {
 		return {
@@ -17,7 +20,7 @@ module.exports = React.createClass({
 			error: false
 		}
 	},
-	onNewData: function(data) {
+	handlePolledData: function(data) {
 
 		var h = this.state.dataHistory
 		h.push(data)
@@ -36,30 +39,19 @@ module.exports = React.createClass({
 		})
 	},
 
-	startPolling: function() {
-		var sym = this.props.symbol.Symbol
-
-		io().emit('poll', sym, function(err, data) {
-			if (err)
-				return this.setState({error: err})
-
-			this.onNewData(data)
-
-			io().on('data:' + sym, this.onNewData)
-
-		}.bind(this))
+	handlePolledError: function(err) {
+		this.setState({error: err})
 	},
+
 	componentDidMount: function() {
 
-		this.startPolling()
+		this.startListening(this.props.symbol.Symbol, this.handlePolledData, this.handlePolledError)
 
 		//Con reconnect, start polling again. Not working well.. :S
-		// io().on('connect', this.startPolling)
-
+		// io().on('connect', this.startListening)
 	},
 	componentWillUnmount: function() {
-		io().removeListener('data:' + this.props.symbol.Symbol, this.onNewData)
-		io().emit('poll stop', this.props.symbol.Symbol)
+		this.stopListening(this.props.symbol.Symbol, this.onNewData)
 	},
 	changeSize: function() {
 		var curr = this.state.size
