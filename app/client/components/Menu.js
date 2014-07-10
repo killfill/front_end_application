@@ -11,7 +11,6 @@ module.exports = React.createClass({
 				{href: '/', title: 'Dashboard'},
 				{href: '/table', title: 'Table'},
 				{href: '/graph', title: 'Graph'},
-				{href: '/bench', title: 'Benchmark'},
 				{href: '/about', title: '@'},
 			]
 		}

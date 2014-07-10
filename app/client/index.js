@@ -33,11 +33,6 @@ page('/graph', function() {
 	React.renderComponent(<BigGraph/>, container)
 })
 
-page('/bench', function() {
-	React.renderComponent(<Menu selected='/bench' />, menu)
-	React.renderComponent(<div>BENCH</div>, container)
-})
-
 page('/about', function() {
 	React.renderComponent(<Menu selected='/about' />, menu)
 	React.renderComponent(<h1 className="center"><p><a href="https://twitter.com/killfil">@killfill</a></p><img src="unicorn.png"/></h1>, container)
