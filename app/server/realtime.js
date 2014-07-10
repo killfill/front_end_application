@@ -32,6 +32,11 @@ module.exports = function(io, opts) {
 			provider.Quote({symbol: symbol}, cb)
 		})
 
+		socket.on('chart', function(params, cb) {
+			var serialized = JSON.stringify(params)
+			provider.InteractiveChart({parameters: serialized}, cb)
+		})
+
 		socket.on('poll', function(symbol, cb) {
 			hub.subscribe(symbol, socket, cb)
 		})

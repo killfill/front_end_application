@@ -12,7 +12,9 @@ module.exports = React.createClass({
 			legend: false,
 			data: [],
 			transition: null, //200,
-			groupBy: null
+			groupBy: null,
+			width: 390,
+			height: 180
 		}
 	},
 
@@ -49,7 +51,7 @@ module.exports = React.createClass({
 		serie.interpolation = this.props.interpolation
 
 		if (this.props.legend)
-			c.addLegend(10, 10, 100, 20, "top")
+			c.addLegend(150, 20, 500, 50, "top")
 
 		this.chart = c
 	},
@@ -57,8 +59,8 @@ module.exports = React.createClass({
 	componentDidMount: function() {
 		this.svg = d3.select(this.getDOMNode())
 			.append('svg')
-				.attr('width', 390)
-				.attr('height', 180)
+				.attr('width', this.props.width)
+				.attr('height', this.props.height)
 
 		this.createDimple()
 		this.updateGraph(this.props)
