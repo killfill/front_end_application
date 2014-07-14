@@ -1,6 +1,6 @@
 /* Layout css stuff */
 
-
+@import url(http://fonts.googleapis.com/css?family=Oswald);
 
 /* Reset */
 html, body, ul, h1, h2, h3, h4, input {
@@ -149,7 +149,7 @@ ul.hover li:hover{
 }
 
 .number {
-	font-family: monospace;
+	font-family: 'Oswald', monospace;
 	text-align: right;
 	white-space: nowrap;
 }
